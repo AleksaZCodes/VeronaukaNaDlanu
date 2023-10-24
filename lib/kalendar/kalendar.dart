@@ -220,44 +220,47 @@ class _KalendarState extends State<Kalendar> {
                     (index) {
                       Praznik praznik = dan.praznici[index];
 
-                      return Card(
-                        child: ListTile(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        child: Card(
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            title: Text(praznik.naslov),
+                            titleTextStyle:
+                                textTheme.titleMedium?.merge(TextStyle(
+                              color: praznik.crnoSlovo
+                                  ? null
+                                  : praznik.crvenoSlovo
+                                      ? HSLColor.fromColor(colors.primary)
+                                          .withHue(0)
+                                          .toColor()
+                                      : colors.primary,
+                              fontWeight: praznik.crnoSlovo || praznik.crvenoSlovo
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            )),
+                            subtitle: dan.objasnjenje.isNotEmpty
+                                ? Text(
+                                    dan.objasnjenje,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                : null,
+                            subtitleTextStyle: textTheme.bodyMedium
+                                ?.merge(TextStyle(fontStyle: FontStyle.italic)),
+                            // onTap: () {
+                            //   showModalBottomSheet(
+                            //     context: context,
+                            //     builder: (context) =>
+                            //         ModalZaMolitvu(molitva: molitva),
+                            //     showDragHandle: true,
+                            //     isScrollControlled: true,
+                            //     useSafeArea: true,
+                            //   );
+                            // },
                           ),
-                          title: Text(praznik.naslov),
-                          titleTextStyle:
-                              textTheme.titleMedium?.merge(TextStyle(
-                            color: praznik.crnoSlovo
-                                ? null
-                                : praznik.crvenoSlovo
-                                    ? HSLColor.fromColor(colors.primary)
-                                        .withHue(0)
-                                        .toColor()
-                                    : colors.primary,
-                            fontWeight: praznik.crnoSlovo || praznik.crvenoSlovo
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                          )),
-                          subtitle: dan.objasnjenje.isNotEmpty
-                              ? Text(
-                                  dan.objasnjenje,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              : null,
-                          subtitleTextStyle: textTheme.bodyMedium
-                              ?.merge(TextStyle(fontStyle: FontStyle.italic)),
-                          // onTap: () {
-                          //   showModalBottomSheet(
-                          //     context: context,
-                          //     builder: (context) =>
-                          //         ModalZaMolitvu(molitva: molitva),
-                          //     showDragHandle: true,
-                          //     isScrollControlled: true,
-                          //     useSafeArea: true,
-                          //   );
-                          // },
                         ),
                       );
                     }(i)
