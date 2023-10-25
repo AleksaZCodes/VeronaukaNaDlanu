@@ -217,6 +217,13 @@ class _PocetnaState extends State<Pocetna> {
     });
   }
 
+  void _sacuvajStanjeZakacenogPoglavlja(
+      Map<dynamic, dynamic> novoZakacenoPoglavlje) {
+    setState(() {
+      _zakacenoPoglavlje = novoZakacenoPoglavlje;
+    });
+  }
+
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -406,18 +413,28 @@ class _PocetnaState extends State<Pocetna> {
                         ],
                       ),
                       SizedBox(height: 8),
-                      Text(
-                        poglavlje["naslov"],
-                        style: textTheme.titleMedium?.merge(TextStyle(
-                          color: praznik.crnoSlovo
-                              ? null
-                              : praznik.crvenoSlovo
-                                  ? HSLColor.fromColor(colors.primary)
-                                      .withHue(0)
-                                      .toColor()
-                                  : colors.primary,
-                          fontWeight: FontWeight.bold,
-                        )),
+                      GestureDetector(
+                        child: Text(
+                          poglavlje["naslov"],
+                          style: textTheme.titleMedium?.merge(TextStyle(
+                            color: colors.primary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                        ),
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            context: context,
+                            builder: (context) => ModalZaCitanje(
+                              knjiga: _knjige[_zakacenoPoglavlje['id_knjige']],
+                              sadrzaj: _sadrzaj,
+                              indeksPoglavlja:_zakacenoPoglavlje['indeks_poglavlja'],
+                              sacuvajStanjeZakacenogPoglavlja: _sacuvajStanjeZakacenogPoglavlja,
+                            ),
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            useSafeArea: true,
+                          );
+                        },
                       ),
                       SizedBox(height: 8),
                       GestureDetector(
@@ -501,7 +518,7 @@ class _PocetnaState extends State<Pocetna> {
                             onPressed: () async {
                               ShareResult rezultat = await Share.shareWithResult("");
                               if (rezultat.status == ShareResultStatus.success) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Хвала на дељењу! Учинили сте добро дело.")));
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Хвала на дељењу! Учинили сте добро дело."),));
                               }
                             },
                             child: Text(
@@ -543,5 +560,242 @@ class _PocetnaState extends State<Pocetna> {
         child: CircularProgressIndicator(), // Show a loading indicator
       );
     }
+  }
+}
+
+class ModalZaCitanje extends StatefulWidget {
+  final Knjiga knjiga;
+  final List<dynamic> sadrzaj;
+  final int indeksPoglavlja;
+  final Function(Map<dynamic, dynamic>) sacuvajStanjeZakacenogPoglavlja;
+
+  const ModalZaCitanje({
+    super.key,
+    required this.knjiga,
+    required this.sadrzaj,
+    this.indeksPoglavlja = 0,
+    required this.sacuvajStanjeZakacenogPoglavlja,
+  });
+
+  @override
+  State<ModalZaCitanje> createState() => _ModalZaCitanjeState();
+}
+
+class _ModalZaCitanjeState extends State<ModalZaCitanje> {
+  late Knjiga _knjiga;
+  late int _indeks_poglavlja;
+  int _indeks_zakacenog_poglavlja = -1;
+  int _id_zakacene_knjige = -1;
+  late ScrollController _skrolKontroler;
+
+  @override
+  void initState() {
+    super.initState();
+    _knjiga = widget.knjiga;
+    _indeks_poglavlja = widget.indeksPoglavlja;
+    _skrolKontroler = ScrollController();
+    _ucitajStanjeZakacenog();
+  }
+
+  void dispose() {
+    _skrolKontroler.dispose();
+    super.dispose();
+  }
+
+  void _sacuvajStanjeZakacenog() async {
+    Box box = await Hive.box("parametri");
+    box.put('indeks_zakacenog_poglavlja',
+        {"indeks_poglavlja": _indeks_poglavlja, "id_knjige": _knjiga.id});
+
+    widget.sacuvajStanjeZakacenogPoglavlja({
+      "indeks_poglavlja": _indeks_poglavlja,
+      "id_knjige": _knjiga.id,
+    });
+  }
+
+  void _ucitajStanjeZakacenog() async {
+    Box box = await Hive.box("parametri");
+    Map<dynamic, dynamic>? zakacenoPoglavlje =
+    box.get('indeks_zakacenog_poglavlja', defaultValue: null);
+
+    if (zakacenoPoglavlje != null) {
+      // Sacuvaj u stanje
+      setState(() {
+        _id_zakacene_knjige = zakacenoPoglavlje["id_knjige"];
+        _indeks_zakacenog_poglavlja = zakacenoPoglavlje["indeks_poglavlja"];
+      });
+    }
+  }
+
+  Widget build(BuildContext context) {
+    ColorScheme colors = Theme.of(context).colorScheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    Map<String, dynamic> poglavlje = widget.sadrzaj[_indeks_poglavlja];
+
+    return Stack(
+      children: [
+        // Prozor za citanje
+        ListView(
+          controller: _skrolKontroler,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _knjiga.naslov,
+                    style: textTheme.titleLarge?.merge(
+                      TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: colors.primary,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
+                    style: textTheme.titleMedium?.merge(
+                      TextStyle(
+                          color: colors.primary, fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  for (int i = 0, len = poglavlje["stihovi"].length;
+                  i < len;
+                  i++)
+                    Stih(
+                      tekst: poglavlje["stihovi"][i],
+                      indeks: i + 1,
+                    ),
+                  SizedBox(height: 100),
+                ],
+              ),
+            ),
+          ],
+        ),
+
+        // Kontrole na dnu
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Dugme prethodno
+                FloatingActionButton.small(
+                  onPressed: () {
+                    setState(() {
+                      if (_indeks_poglavlja > 0) {
+                        _indeks_poglavlja--;
+                        _skrolKontroler.jumpTo(0);
+                      }
+                    });
+                  },
+                  child: FaIcon(
+                    FontAwesomeIcons.caretLeft,
+                    size: textTheme.displaySmall?.fontSize,
+                    color: colors.primary,
+                  ),
+                  backgroundColor: colors.surfaceVariant,
+                ),
+
+                // Naslov poglavlja
+                Flexible(
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      padding: EdgeInsets.all(11),
+                      child: Text(
+                        "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          color: colors.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Dugme zakaci
+                FloatingActionButton.small(
+                  onPressed: () {
+                    _sacuvajStanjeZakacenog();
+                    Navigator.pop(context);
+                  },
+                  child: FaIcon(
+                    _indeks_poglavlja == _indeks_zakacenog_poglavlja &&
+                        _knjiga.id == _id_zakacene_knjige
+                        ? FontAwesomeIcons.solidBookmark
+                        : FontAwesomeIcons.bookmark,
+                    size: textTheme.titleLarge?.fontSize,
+                    color: colors.primary,
+                  ),
+                  backgroundColor: colors.surfaceVariant,
+                ),
+
+                // Dugme sledece
+                FloatingActionButton.small(
+                  onPressed: () {
+                    setState(() {
+                      if (_indeks_poglavlja < widget.sadrzaj.length - 1) {
+                        _indeks_poglavlja++;
+                        _skrolKontroler.jumpTo(0);
+                      }
+                    });
+                  },
+                  child: FaIcon(
+                    FontAwesomeIcons.caretRight,
+                    size: textTheme.displaySmall?.fontSize,
+                    color: colors.primary,
+                  ),
+                  backgroundColor: colors.surfaceVariant,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Stih extends StatelessWidget {
+  final int indeks;
+  final String tekst;
+
+  const Stih({
+    super.key,
+    required this.indeks,
+    required this.tekst,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme colors = Theme.of(context).colorScheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Text(
+            "$indeks",
+            style: textTheme.bodySmall?.merge(TextStyle(color: colors.outline)),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Flexible(
+            child: Text(
+              tekst,
+              style: textTheme.bodyLarge,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
