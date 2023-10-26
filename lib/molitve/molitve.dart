@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 
 import 'package:veronauka/molitve/molitva.dart';
+import 'package:veronauka/latinica_cirilica.dart';
 
 class Molitve extends StatefulWidget {
   const Molitve({super.key});
@@ -15,7 +16,9 @@ class Molitve extends StatefulWidget {
 }
 
 class _MolitveState extends State<Molitve> {
+  TextEditingController _kontrolerPretrage = TextEditingController();
   List<Molitva> _molitve = [];
+  List<Molitva> _filtriraneMolitve = [];
 
   @override
   void initState() {
@@ -26,6 +29,9 @@ class _MolitveState extends State<Molitve> {
   void _setup() async {
     await _ucitajMolitve();
     await _ucitajStanjeZakacenih();
+    setState(() {
+      _filtriraneMolitve = _molitve;
+    });
   }
 
   Future<void> _ucitajMolitve() async {
@@ -76,6 +82,18 @@ class _MolitveState extends State<Molitve> {
     box.put('zakacene_molitve', idZakacenihMolitvi);
   }
 
+  void _filtrirajMolitve(String unos) {
+    setState(() {
+      _filtriraneMolitve = _molitve.where((molitva) {
+        String naslov = latinicaCirilica(molitva.naslov.toLowerCase());
+        String telo = latinicaCirilica(molitva.telo.toLowerCase());
+        String unosCirilica = latinicaCirilica(unos.toLowerCase());
+
+        return naslov.contains(unosCirilica) || telo.contains(unosCirilica);
+      }).toList();
+    });
+  }
+
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -84,68 +102,112 @@ class _MolitveState extends State<Molitve> {
 
     // Podeli molitve na zakacene i klasicne
     List<Molitva> zakaceneMolitve =
-    _molitve.where((molitva) => molitva.zakaceno).toList();
+        _molitve.where((molitva) => molitva.zakaceno).toList();
     List<Molitva> klasicneMolitve =
-    _molitve.where((molitva) => !molitva.zakaceno).toList();
+        _molitve.where((molitva) => !molitva.zakaceno).toList();
 
     // Spoji tako da su zakacene prve
     _molitve = [...zakaceneMolitve, ...klasicneMolitve];
 
     return Stack(
       children: [
-        ListView.builder(
-            itemCount: _molitve.length,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            physics: AlwaysScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              Molitva molitva = _molitve[index];
-
-              return Card(
-                key: ValueKey(molitva.id),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  title: Text(molitva.naslov),
-                  titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                  leading: FaIcon(
+                    FontAwesomeIcons.magnifyingGlass,
                     color: colors.primary,
-                    fontWeight: FontWeight.bold,
-                  )),
-                  subtitle: Text(
-                    // Zameni \n sa razmakom za vise prikazanog teksta
-                    molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    size: textTheme.titleLarge?.fontSize,
                   ),
-                  subtitleTextStyle: textTheme.bodyMedium
-                      ?.merge(TextStyle(fontStyle: FontStyle.italic)),
-                  trailing: IconButton(
-                    icon: FaIcon(
-                      molitva.zakaceno
-                          ? FontAwesomeIcons.solidBookmark
-                          : FontAwesomeIcons.bookmark,
-                      color: colors.primary,
+                  title: Container(
+                    height: 45,
+                    child: TextField(
+                      style: textTheme.titleMedium,
+                      decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 0)),
+                      controller: _kontrolerPretrage,
+                      onChanged: (String unos) {
+                        _filtrirajMolitve(unos);
+                      },
                     ),
-                    iconSize: textTheme.titleLarge?.fontSize,
-                    onPressed: () {
-                      setState(() {
-                        molitva.zakaceno = !molitva.zakaceno;
-                        _sacuvajStanjeZakacenih();
-                      });
-                    },
                   ),
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => ModalZaMolitvu(molitva: molitva),
-                      showDragHandle: true,
-                      isScrollControlled: true,
-                      useSafeArea: true,
-                    );
-                  },
+                  // trailing: IconButton(
+                  //   icon: FaIcon(
+                  //     FontAwesomeIcons.xmark,
+                  //     color: colors.primary,
+                  //   ),
+                  //   // iconSize: textTheme.titleLarge?.fontSize,
+                  //   onPressed: () {},
+                  // ),
                 ),
-              );
-            }),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: _filtriraneMolitve.length,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    Molitva molitva = _filtriraneMolitve[index];
+
+                    return Card(
+                      key: ValueKey(molitva.id),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        title: Text(molitva.naslov),
+                        titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                          color: colors.primary,
+                          fontWeight: FontWeight.bold,
+                        )),
+                        subtitle: Text(
+                          // Zameni \n sa razmakom za vise prikazanog teksta
+                          molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitleTextStyle: textTheme.bodyMedium
+                            ?.merge(TextStyle(fontStyle: FontStyle.italic)),
+                        trailing: IconButton(
+                          icon: FaIcon(
+                            molitva.zakaceno
+                                ? FontAwesomeIcons.solidBookmark
+                                : FontAwesomeIcons.bookmark,
+                            color: colors.primary,
+                          ),
+                          iconSize: textTheme.titleLarge?.fontSize,
+                          onPressed: () {
+                            setState(() {
+                              molitva.zakaceno = !molitva.zakaceno;
+                              _sacuvajStanjeZakacenih();
+                            });
+                          },
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) =>
+                                ModalZaMolitvu(molitva: molitva),
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            useSafeArea: true,
+                          );
+                        },
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
         if (_molitve.isEmpty)
           Center(
             child: CircularProgressIndicator(), // Show a loading indicator
