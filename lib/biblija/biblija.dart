@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 
 import 'package:veronauka/biblija/knjiga.dart';
 import 'package:veronauka/biblija/verzija.dart';
+import 'package:veronauka/latinica_cirilica.dart';
 
 class Biblija extends StatefulWidget {
   const Biblija({super.key});
@@ -16,9 +17,11 @@ class Biblija extends StatefulWidget {
 }
 
 class _BiblijaState extends State<Biblija> {
+  TextEditingController _kontrolerPretrage = TextEditingController();
   List<Verzija> _verzije = [];
   late Verzija _izabranaVerzija;
   List<Knjiga> _knjige = [];
+  List<Knjiga> _filtriraneKnjige = [];
   Map<dynamic, dynamic> _zakacenoPoglavlje = {};
 
   @override
@@ -32,6 +35,7 @@ class _BiblijaState extends State<Biblija> {
     await _ucitajIzabranuVerziju();
     await _ucitajKnjige();
     await _ucitajStanjeZakacenogPoglavlja();
+    _filtriraneKnjige = _knjige;
   }
 
   Future<void> _ucitajVerzije() async {
@@ -119,6 +123,18 @@ class _BiblijaState extends State<Biblija> {
     await _sacuvajIzabranuVerziju();
     await _ucitajKnjige();
   }
+  void _filtrirajKnjige(String unos) {
+    setState(() {
+      _filtriraneKnjige = _knjige.where((knjiga) {
+        String naslov = latinicaCirilica(knjiga.naslov.toLowerCase());
+        String kategorija = latinicaCirilica(knjiga.kategorija.toLowerCase());
+        String potkategorija = latinicaCirilica(knjiga.potkategorija.toLowerCase());
+        String unosCirilica = latinicaCirilica(unos.toLowerCase());
+
+        return naslov.contains(unosCirilica) || kategorija.contains(unosCirilica) || potkategorija.contains(unosCirilica);
+      }).toList();
+    });
+  }
 
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
@@ -142,11 +158,11 @@ class _BiblijaState extends State<Biblija> {
           // Lista knjiga
           Expanded(
             child: ListView.builder(
-                itemCount: _knjige.length,
+                itemCount: _filtriraneKnjige.length,
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 physics: AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  Knjiga knjiga = _knjige[index];
+                  Knjiga knjiga = _filtriraneKnjige[index];
 
                   return KarticaKnjige(
                     knjiga: knjiga,
@@ -158,24 +174,70 @@ class _BiblijaState extends State<Biblija> {
                 }),
           ),
 
-          // Odabir verzije
-          DropdownButton(
-            value: _izabranaVerzija,
-            onChanged: (novaVerzija) {
-              setState(() {
-                if (novaVerzija != null) {
-                  _izabranaVerzija = novaVerzija;
-                  _promeniVerziju();
-                }
-              });
-            },
-            items: _verzije.map((verzija) {
-              return DropdownMenuItem(
-                value: verzija,
-                child: Text(verzija.naslov),
-              );
-            }).toList(),
+          // Pretraga knjiga
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.magnifyingGlass,
+                        color: colors.primary,
+                        size: textTheme.titleLarge?.fontSize,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: Container(
+                          child: TextField(
+                            maxLines: 1,
+                            style: textTheme.titleMedium!.merge(TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: colors.primary,
+                            )),
+                            decoration: InputDecoration(
+                              contentPadding:
+                              EdgeInsets.symmetric(vertical: 0),
+                              border: InputBorder.none,
+                              hintText: "Претражите књиге",
+                            ),
+                            controller: _kontrolerPretrage,
+                            onChanged: (String unos) {
+                              _filtrirajKnjige(unos);
+                            },
+                          ),
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
           ),
+
+          // // Odabir verzije
+          // DropdownButton(
+          //   value: _izabranaVerzija,
+          //   onChanged: (novaVerzija) {
+          //     setState(() {
+          //       if (novaVerzija != null) {
+          //         _izabranaVerzija = novaVerzija;
+          //         _promeniVerziju();
+          //       }
+          //     });
+          //   },
+          //   items: _verzije.map((verzija) {
+          //     return DropdownMenuItem(
+          //       value: verzija,
+          //       child: Text(verzija.naslov),
+          //     );
+          //   }).toList(),
+          // ),
         ],
       );
     } else {
