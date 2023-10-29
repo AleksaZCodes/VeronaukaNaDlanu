@@ -98,58 +98,21 @@ class _MolitveState extends State<Molitve> {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    _molitve.sort((a, b) => a.id - b.id);
+    _filtriraneMolitve.sort((a, b) => a.id - b.id);
 
     // Podeli molitve na zakacene i klasicne
     List<Molitva> zakaceneMolitve =
-        _molitve.where((molitva) => molitva.zakaceno).toList();
+        _filtriraneMolitve.where((molitva) => molitva.zakaceno).toList();
     List<Molitva> klasicneMolitve =
-        _molitve.where((molitva) => !molitva.zakaceno).toList();
+        _filtriraneMolitve.where((molitva) => !molitva.zakaceno).toList();
 
     // Spoji tako da su zakacene prve
-    _molitve = [...zakaceneMolitve, ...klasicneMolitve];
+    _filtriraneMolitve = [...zakaceneMolitve, ...klasicneMolitve];
 
     return Stack(
       children: [
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: ListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  leading: FaIcon(
-                    FontAwesomeIcons.magnifyingGlass,
-                    color: colors.primary,
-                    size: textTheme.titleLarge?.fontSize,
-                  ),
-                  title: Container(
-                    height: 45,
-                    child: TextField(
-                      style: textTheme.titleMedium,
-                      decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(vertical: 0)),
-                      controller: _kontrolerPretrage,
-                      onChanged: (String unos) {
-                        _filtrirajMolitve(unos);
-                      },
-                    ),
-                  ),
-                  // trailing: IconButton(
-                  //   icon: FaIcon(
-                  //     FontAwesomeIcons.xmark,
-                  //     color: colors.primary,
-                  //   ),
-                  //   // iconSize: textTheme.titleLarge?.fontSize,
-                  //   onPressed: () {},
-                  // ),
-                ),
-              ),
-            ),
             Expanded(
               child: ListView.builder(
                   itemCount: _filtriraneMolitve.length,
@@ -205,6 +168,50 @@ class _MolitveState extends State<Molitve> {
                       ),
                     );
                   }),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          color: colors.primary,
+                          size: textTheme.titleLarge?.fontSize,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Flexible(
+                          child: Container(
+                            child: TextField(
+                              maxLines: 1,
+                              style: textTheme.titleMedium!.merge(TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: colors.primary,
+                              )),
+                              decoration: InputDecoration(
+                                contentPadding:
+                                EdgeInsets.symmetric(vertical: 0),
+                                border: InputBorder.none,
+                                hintText: "Претражите молитве",
+                              ),
+                              controller: _kontrolerPretrage,
+                              onChanged: (String unos) {
+                                _filtrirajMolitve(unos);
+                              },
+                            ),
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
             ),
           ],
         ),
