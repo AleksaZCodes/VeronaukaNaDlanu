@@ -6,12 +6,14 @@ import 'package:flutter/gestures.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:veronauka/biblija/verzija.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:veronauka/biblija/biblija.dart';
 
 import 'package:veronauka/kalendar/praznik.dart';
 import 'package:veronauka/kalendar/dan.dart';
 import 'package:veronauka/molitve/molitva.dart';
 import 'package:veronauka/biblija/knjiga.dart';
+import 'package:veronauka/biblija/verzija.dart';
 import 'package:veronauka/molitve/molitve.dart';
 
 class Pocetna extends StatefulWidget {
@@ -34,6 +36,13 @@ class _PocetnaState extends State<Pocetna> {
   List<dynamic> _sadrzaj = [];
 
   bool _ucitano = false;
+
+  GlobalKey _kalendar1 = GlobalKey();
+  GlobalKey _molitve2 = GlobalKey();
+  GlobalKey _biblija3 = GlobalKey();
+  GlobalKey _dobra_dela4 = GlobalKey();
+
+  Map<dynamic, dynamic> _prikaziUputstva = {};
 
   @override
   void initState() {
@@ -58,9 +67,38 @@ class _PocetnaState extends State<Pocetna> {
     await _ucitajStanjeZakacenogPoglavljaBiblije();
     await _ucitajSadrzajKnjige(_knjige[_zakacenoPoglavlje["id_knjige"]]);
 
+    await _ucitajStanjePrikazivanjaUputstva();
+
     setState(() {
       _ucitano = true;
     });
+
+    if (_prikaziUputstva["pocetna_nov_korisnik"]) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context)
+              .startShowCase([_kalendar1, _molitve2, _biblija3, _dobra_dela4]));
+
+      setState(() {
+        _prikaziUputstva["pocetna_nov_korisnik"] = false;
+      });
+
+      _sacuvajStanjePrikazivanjaUputstva();
+    }
+  }
+
+  Future<void> _ucitajStanjePrikazivanjaUputstva() async {
+    Box box = await Hive.box("parametri");
+    Map<dynamic, dynamic> prikaziUputstva =
+        box.get('prikazi_uputstva', defaultValue: null);
+
+    setState(() {
+      _prikaziUputstva = prikaziUputstva;
+    });
+  }
+
+  Future<void> _sacuvajStanjePrikazivanjaUputstva() async {
+    Box box = await Hive.box("parametri");
+    box.put("prikazi_uputstva", _prikaziUputstva);
   }
 
   Future<void> _ucitajDanasnjiDan() async {
@@ -161,10 +199,12 @@ class _PocetnaState extends State<Pocetna> {
     // Ucitaj id verzije
     Box box = await Hive.box("parametri");
     int idIzabraneVerzije =
-    box.get("id_izabrane_verzije_biblije", defaultValue: 0);
+        box.get("id_izabrane_verzije_biblije", defaultValue: 0);
 
     setState(() {
-      Verzija? verzija = _verzije.where((verzija) => verzija.id == idIzabraneVerzije).firstOrNull;
+      Verzija? verzija = _verzije
+          .where((verzija) => verzija.id == idIzabraneVerzije)
+          .firstOrNull;
       if (verzija != null) {
         _izabranaVerzija = verzija;
       } else {
@@ -209,8 +249,8 @@ class _PocetnaState extends State<Pocetna> {
 
   Future<void> _ucitajSadrzajKnjige(knjiga) async {
     // Ucitaj sadrzaj knjige
-    String sadrzajJson = await rootBundle
-        .loadString("podaci/biblija/${_izabranaVerzija.lokacija}/${knjiga.lokacija}");
+    String sadrzajJson = await rootBundle.loadString(
+        "podaci/biblija/${_izabranaVerzija.lokacija}/${knjiga.lokacija}");
 
     setState(() {
       _sadrzaj = json.decode(sadrzajJson);
@@ -224,6 +264,16 @@ class _PocetnaState extends State<Pocetna> {
     });
   }
 
+  // void _skrolujDo(GlobalKey key) {
+  //   RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
+  //   double offset = renderBox.localToGlobal(Offset.zero).dy;
+  //   _scrollController.animateTo(
+  //     offset,
+  //     duration: Duration(milliseconds: 500),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
+
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -234,12 +284,30 @@ class _PocetnaState extends State<Pocetna> {
       Map<String, dynamic> poglavlje =
           _sadrzaj[_zakacenoPoglavlje["indeks_poglavlja"]];
 
-      return Container(
-        child: ListView(
-          children: [
-            // Kalendar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+      return ListView(
+        // controller: _scrollController,
+        children: [
+          // Kalendar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Showcase(
+              key: _kalendar1,
+              targetBorderRadius: BorderRadius.circular(13),
+              tooltipBorderRadius: BorderRadius.circular(10),
+              tooltipPadding: EdgeInsets.all(15),
+              // onTargetClick: () {
+              //   _skrolujDo(_kalendar1);
+              // },
+              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                color: colors.primary,
+                fontWeight: FontWeight.bold,
+              )),
+              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                fontStyle: FontStyle.italic,
+              )),
+              title: 'Данашњи празник',
+              description:
+                  'Сазнајте који се празник прославља данас, као и осталих датума.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -312,10 +380,29 @@ class _PocetnaState extends State<Pocetna> {
                 ),
               ),
             ),
+          ),
 
-            // Molitve
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+          // Molitve
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Showcase(
+              key: _molitve2,
+              targetBorderRadius: BorderRadius.circular(13),
+              tooltipBorderRadius: BorderRadius.circular(10),
+              tooltipPadding: EdgeInsets.all(15),
+              // onTargetClick: () {
+              //   _skrolujDo(_molitve2);
+              // },
+              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                color: colors.primary,
+                fontWeight: FontWeight.bold,
+              )),
+              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                fontStyle: FontStyle.italic,
+              )),
+              title: 'Истакнуте молитве',
+              description:
+                  'Читајте молитве и закачите их овде да Вам буду на дохват руке. Можете да их читате кликом на њих.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -384,10 +471,29 @@ class _PocetnaState extends State<Pocetna> {
                 ),
               ),
             ),
+          ),
 
-            // Biblija
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+          // Biblija
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Showcase(
+              key: _biblija3,
+              targetBorderRadius: BorderRadius.circular(13),
+              tooltipBorderRadius: BorderRadius.circular(10),
+              tooltipPadding: EdgeInsets.all(15),
+              // onTargetClick: () {
+              //   _skrolujDo(_biblija3);
+              // },
+              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                color: colors.primary,
+                fontWeight: FontWeight.bold,
+              )),
+              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                fontStyle: FontStyle.italic,
+              )),
+              title: 'Истакнуто поглавље Библије',
+              description:
+                  'Ваше дневно поглавље Библије се појављује овде сваки дан. Можете да га прочитате кликом на њега.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -425,10 +531,13 @@ class _PocetnaState extends State<Pocetna> {
                           await showModalBottomSheet(
                             context: context,
                             builder: (context) => ModalZaCitanje(
-                              knjiga: _knjige[_zakacenoPoglavlje['id_knjige']],
+                              knjiga:
+                                  _knjige[_zakacenoPoglavlje['id_knjige']],
                               sadrzaj: _sadrzaj,
-                              indeksPoglavlja:_zakacenoPoglavlje['indeks_poglavlja'],
-                              sacuvajStanjeZakacenogPoglavlja: _sacuvajStanjeZakacenogPoglavlja,
+                              indeksPoglavlja:
+                                  _zakacenoPoglavlje['indeks_poglavlja'],
+                              sacuvajStanjeZakacenogPoglavlja:
+                                  _sacuvajStanjeZakacenogPoglavlja,
                             ),
                             showDragHandle: true,
                             isScrollControlled: true,
@@ -456,10 +565,29 @@ class _PocetnaState extends State<Pocetna> {
                 ),
               ),
             ),
+          ),
 
-            // Dobra dela
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+          // Dobra dela
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Showcase(
+              key: _dobra_dela4,
+              targetBorderRadius: BorderRadius.circular(13),
+              tooltipBorderRadius: BorderRadius.circular(10),
+              tooltipPadding: EdgeInsets.all(15),
+              // onTargetClick: () {
+              //   _skrolujDo(_dobra_dela4);
+              // },
+              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                color: colors.primary,
+                fontWeight: FontWeight.bold,
+              )),
+              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                fontStyle: FontStyle.italic,
+              )),
+              title: 'Истакнуто добро дело',
+              description:
+                  'Учините да овај пали свет постане лепше место на неки од понуђених начина.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -516,9 +644,15 @@ class _PocetnaState extends State<Pocetna> {
                           SizedBox(width: 8),
                           OutlinedButton(
                             onPressed: () async {
-                              ShareResult rezultat = await Share.shareWithResult("");
-                              if (rezultat.status == ShareResultStatus.success) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Хвала на дељењу! Учинили сте добро дело."),));
+                              ShareResult rezultat =
+                                  await Share.shareWithResult("");
+                              if (rezultat.status ==
+                                  ShareResultStatus.success) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(
+                                      "Хвала на дељењу! Учинили сте добро дело."),
+                                ));
                               }
                             },
                             child: Text(
@@ -552,8 +686,8 @@ class _PocetnaState extends State<Pocetna> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       );
     } else {
       return Center(
@@ -563,239 +697,43 @@ class _PocetnaState extends State<Pocetna> {
   }
 }
 
-class ModalZaCitanje extends StatefulWidget {
-  final Knjiga knjiga;
-  final List<dynamic> sadrzaj;
-  final int indeksPoglavlja;
-  final Function(Map<dynamic, dynamic>) sacuvajStanjeZakacenogPoglavlja;
+class ModalZaMolitvu extends StatelessWidget {
+  final Molitva molitva;
 
-  const ModalZaCitanje({
-    super.key,
-    required this.knjiga,
-    required this.sadrzaj,
-    this.indeksPoglavlja = 0,
-    required this.sacuvajStanjeZakacenogPoglavlja,
-  });
+  const ModalZaMolitvu({super.key, required this.molitva});
 
   @override
-  State<ModalZaCitanje> createState() => _ModalZaCitanjeState();
-}
-
-class _ModalZaCitanjeState extends State<ModalZaCitanje> {
-  late Knjiga _knjiga;
-  late int _indeks_poglavlja;
-  int _indeks_zakacenog_poglavlja = -1;
-  int _id_zakacene_knjige = -1;
-  late ScrollController _skrolKontroler;
-
-  @override
-  void initState() {
-    super.initState();
-    _knjiga = widget.knjiga;
-    _indeks_poglavlja = widget.indeksPoglavlja;
-    _skrolKontroler = ScrollController();
-    _ucitajStanjeZakacenog();
-  }
-
-  void dispose() {
-    _skrolKontroler.dispose();
-    super.dispose();
-  }
-
-  void _sacuvajStanjeZakacenog() async {
-    Box box = await Hive.box("parametri");
-    box.put('indeks_zakacenog_poglavlja',
-        {"indeks_poglavlja": _indeks_poglavlja, "id_knjige": _knjiga.id});
-
-    widget.sacuvajStanjeZakacenogPoglavlja({
-      "indeks_poglavlja": _indeks_poglavlja,
-      "id_knjige": _knjiga.id,
-    });
-  }
-
-  void _ucitajStanjeZakacenog() async {
-    Box box = await Hive.box("parametri");
-    Map<dynamic, dynamic>? zakacenoPoglavlje =
-    box.get('indeks_zakacenog_poglavlja', defaultValue: null);
-
-    if (zakacenoPoglavlje != null) {
-      // Sacuvaj u stanje
-      setState(() {
-        _id_zakacene_knjige = zakacenoPoglavlje["id_knjige"];
-        _indeks_zakacenog_poglavlja = zakacenoPoglavlje["indeks_poglavlja"];
-      });
-    }
-  }
-
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    Map<String, dynamic> poglavlje = widget.sadrzaj[_indeks_poglavlja];
-
-    return Stack(
+    return ListView(
       children: [
-        // Prozor za citanje
-        ListView(
-          controller: _skrolKontroler,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _knjiga.naslov,
-                    style: textTheme.titleLarge?.merge(
-                      TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: colors.primary,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
-                    style: textTheme.titleMedium?.merge(
-                      TextStyle(
-                          color: colors.primary, fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                  for (int i = 0, len = poglavlje["stihovi"].length;
-                  i < len;
-                  i++)
-                    Stih(
-                      tekst: poglavlje["stihovi"][i],
-                      indeks: i + 1,
-                    ),
-                  SizedBox(height: 100),
-                ],
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                molitva.naslov,
+                style: textTheme.titleLarge?.merge(TextStyle(
+                    fontWeight: FontWeight.bold, color: colors.primary)),
               ),
-            ),
-          ],
-        ),
-
-        // Kontrole na dnu
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Dugme prethodno
-                FloatingActionButton.small(
-                  onPressed: () {
-                    setState(() {
-                      if (_indeks_poglavlja > 0) {
-                        _indeks_poglavlja--;
-                        _skrolKontroler.jumpTo(0);
-                      }
-                    });
-                  },
-                  child: FaIcon(
-                    FontAwesomeIcons.caretLeft,
-                    size: textTheme.displaySmall?.fontSize,
-                    color: colors.primary,
-                  ),
-                  backgroundColor: colors.surfaceVariant,
-                ),
-
-                // Naslov poglavlja
-                Flexible(
-                  child: Card(
-                    elevation: 5,
-                    child: Container(
-                      padding: EdgeInsets.all(11),
-                      child: Text(
-                        "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: colors.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Dugme zakaci
-                FloatingActionButton.small(
-                  onPressed: () {
-                    _sacuvajStanjeZakacenog();
-                    Navigator.pop(context);
-                  },
-                  child: FaIcon(
-                    _indeks_poglavlja == _indeks_zakacenog_poglavlja &&
-                        _knjiga.id == _id_zakacene_knjige
-                        ? FontAwesomeIcons.solidBookmark
-                        : FontAwesomeIcons.bookmark,
-                    size: textTheme.titleLarge?.fontSize,
-                    color: colors.primary,
-                  ),
-                  backgroundColor: colors.surfaceVariant,
-                ),
-
-                // Dugme sledece
-                FloatingActionButton.small(
-                  onPressed: () {
-                    setState(() {
-                      if (_indeks_poglavlja < widget.sadrzaj.length - 1) {
-                        _indeks_poglavlja++;
-                        _skrolKontroler.jumpTo(0);
-                      }
-                    });
-                  },
-                  child: FaIcon(
-                    FontAwesomeIcons.caretRight,
-                    size: textTheme.displaySmall?.fontSize,
-                    color: colors.primary,
-                  ),
-                  backgroundColor: colors.surfaceVariant,
-                ),
-              ],
-            ),
+              SizedBox(height: 20),
+              Text(
+                molitva.telo,
+                style: textTheme.bodyLarge,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Извор: ${molitva.izvor}',
+                style: textTheme.labelLarge
+                    ?.merge(TextStyle(color: colors.primary)),
+              ),
+            ],
           ),
         ),
       ],
-    );
-  }
-}
-
-class Stih extends StatelessWidget {
-  final int indeks;
-  final String tekst;
-
-  const Stih({
-    super.key,
-    required this.indeks,
-    required this.tekst,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    ColorScheme colors = Theme.of(context).colorScheme;
-    TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Text(
-            "$indeks",
-            style: textTheme.bodySmall?.merge(TextStyle(color: colors.outline)),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Flexible(
-            child: Text(
-              tekst,
-              style: textTheme.bodyLarge,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
