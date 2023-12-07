@@ -41,8 +41,10 @@ dependencies:
   hive_flutter: ^1.1.0
   table_calendar: ^3.0.9
   google_mobile_ads: ^3.0.0
-  flutter_native_splash: ^2.3.2
+  flutter_native_splash: ^2.3.7
   share_plus: ^7.1.0
+  showcaseview: ^2.0.3
+  package_info_plus: ^4.2.0
 
 dev_dependencies:
   flutter_test:
@@ -61,12 +63,18 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: false
-  image_path: "assets/icons/vnd-icon-foreground-512.png"
+  image_path: assets/icons/icon-background-512.png
+  adaptive_icon_foreground: assets/icons/icon-foreground-1024.png
+  adaptive_icon_background: "#ffffff"
 
 flutter_native_splash:
   color: "#ffffff"
-  image: "assets/splash/vnd-splash-foreground-512.png"
+  image: "assets/icons/icon-foreground-1024.png"
   android: true
+
+  android_12:
+    color: "#ffffff"
+    image: "assets/icons/icon-foreground-1024.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -87,6 +95,10 @@ flutter:
     - podaci/biblija/svetosavlje/knjige/
     - podaci/kalendar/
     - podaci/kalendar/godine/
+    - assets/
+    - assets/icons/
+    - assets/splash/
+    - fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
