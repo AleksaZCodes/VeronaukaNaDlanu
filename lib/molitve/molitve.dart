@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'package:veronauka/molitve/molitva.dart';
 import 'package:veronauka/latinica_cirilica.dart';
@@ -20,6 +21,12 @@ class _MolitveState extends State<Molitve> {
   List<Molitva> _molitve = [];
   List<Molitva> _filtriraneMolitve = [];
 
+  GlobalKey _molitva1 = GlobalKey();
+  GlobalKey _dugme_zakaci2 = GlobalKey();
+  GlobalKey _pretraga3 = GlobalKey();
+
+  Map<dynamic, dynamic> _prikaziUputstva = {};
+
   @override
   void initState() {
     super.initState();
@@ -29,9 +36,38 @@ class _MolitveState extends State<Molitve> {
   void _setup() async {
     await _ucitajMolitve();
     await _ucitajStanjeZakacenih();
+
+    await _ucitajStanjePrikazivanjaUputstva();
+
     setState(() {
       _filtriraneMolitve = _molitve;
     });
+
+    if (_prikaziUputstva["molitve_nov_korisnik"]) {
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => ShowCaseWidget.of(context).startShowCase([_molitva1, _dugme_zakaci2, _pretraga3]));
+
+      setState(() {
+        _prikaziUputstva["molitve_nov_korisnik"] = false;
+      });
+
+      _sacuvajStanjePrikazivanjaUputstva();
+    }
+  }
+
+  Future<void> _ucitajStanjePrikazivanjaUputstva() async {
+    Box box = await Hive.box("parametri");
+    Map<dynamic, dynamic> prikaziUputstva =
+        box.get('prikazi_uputstva', defaultValue: null);
+
+    setState(() {
+      _prikaziUputstva = prikaziUputstva;
+    });
+  }
+
+  Future<void> _sacuvajStanjePrikazivanjaUputstva() async {
+    Box box = await Hive.box("parametri");
+    box.put("prikazi_uputstva", _prikaziUputstva);
   }
 
   Future<void> _ucitajMolitve() async {
@@ -87,7 +123,7 @@ class _MolitveState extends State<Molitve> {
       _filtriraneMolitve = _molitve.where((molitva) {
         String naslov = latinicaCirilica(molitva.naslov.toLowerCase());
         String telo = latinicaCirilica(molitva.telo.toLowerCase());
-        String unosCirilica = latinicaCirilica(unos.toLowerCase());
+        String unosCirilica = latinicaCirilica(unos.trim().toLowerCase());
 
         return naslov.contains(unosCirilica) || telo.contains(unosCirilica);
       }).toList();
@@ -121,95 +157,205 @@ class _MolitveState extends State<Molitve> {
                   itemBuilder: (context, index) {
                     Molitva molitva = _filtriraneMolitve[index];
 
-                    return Card(
-                      key: ValueKey(molitva.id),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        title: Text(molitva.naslov),
+                    if (index == 0) {
+                      return Showcase(
+                        key: _molitva1,
+                        targetBorderRadius: BorderRadius.circular(13),
+                        tooltipBorderRadius: BorderRadius.circular(10),
+                        tooltipPadding: EdgeInsets.all(15),
+                        // onTargetClick: () {
+                        //   _skrolujDo(_biblija3);
+                        // },
                         titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
                           color: colors.primary,
                           fontWeight: FontWeight.bold,
                         )),
-                        subtitle: Text(
-                          // Zameni \n sa razmakom za vise prikazanog teksta
-                          molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitleTextStyle: textTheme.bodyMedium
-                            ?.merge(TextStyle(fontStyle: FontStyle.italic)),
-                        trailing: IconButton(
-                          icon: FaIcon(
-                            molitva.zakaceno
-                                ? FontAwesomeIcons.solidBookmark
-                                : FontAwesomeIcons.bookmark,
-                            color: colors.primary,
+                        descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                          fontStyle: FontStyle.italic,
+                        )),
+                        title: 'Молитва',
+                        description:
+                            'Ово је једна молитва из листе. Можете да је прочитате кликом на њу.',
+                        child: Card(
+                          key: ValueKey(molitva.id),
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            title: Text(molitva.naslov),
+                            titleTextStyle:
+                                textTheme.titleMedium?.merge(TextStyle(
+                              color: colors.primary,
+                              fontWeight: FontWeight.bold,
+                            )),
+                            subtitle: Text(
+                              // Zameni \n sa razmakom za vise prikazanog teksta
+                              molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitleTextStyle: textTheme.bodyMedium
+                                ?.merge(TextStyle(fontStyle: FontStyle.italic)),
+                            trailing: Showcase(
+                              key: _dugme_zakaci2,
+                              targetBorderRadius: BorderRadius.circular(100),
+                              tooltipBorderRadius: BorderRadius.circular(10),
+                              tooltipPadding: EdgeInsets.all(15),
+                              // onTargetClick: () {
+                              //   _skrolujDo(_biblija3);
+                              // },
+                              titleTextStyle:
+                                  textTheme.titleMedium?.merge(TextStyle(
+                                color: colors.primary,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              descTextStyle:
+                                  textTheme.bodyMedium?.merge(TextStyle(
+                                fontStyle: FontStyle.italic,
+                              )),
+                              title: 'Закачите молитву',
+                              description:
+                                  'Можете да закачите молитву на врх листе како би била на дохват руке.',
+                              child: IconButton(
+                                icon: FaIcon(
+                                  molitva.zakaceno
+                                      ? FontAwesomeIcons.solidBookmark
+                                      : FontAwesomeIcons.bookmark,
+                                  color: colors.primary,
+                                ),
+                                iconSize: textTheme.titleLarge?.fontSize,
+                                onPressed: () {
+                                  setState(() {
+                                    molitva.zakaceno = !molitva.zakaceno;
+                                    _sacuvajStanjeZakacenih();
+                                  });
+                                },
+                              ),
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) =>
+                                    ModalZaMolitvu(molitva: molitva),
+                                showDragHandle: true,
+                                isScrollControlled: true,
+                                useSafeArea: true,
+                              );
+                            },
                           ),
-                          iconSize: textTheme.titleLarge?.fontSize,
-                          onPressed: () {
-                            setState(() {
-                              molitva.zakaceno = !molitva.zakaceno;
-                              _sacuvajStanjeZakacenih();
-                            });
+                        ),
+                      );
+                    } else {
+                      return Card(
+                        key: ValueKey(molitva.id),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          title: Text(molitva.naslov),
+                          titleTextStyle:
+                              textTheme.titleMedium?.merge(TextStyle(
+                            color: colors.primary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          subtitle: Text(
+                            // Zameni \n sa razmakom za vise prikazanog teksta
+                            molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitleTextStyle: textTheme.bodyMedium
+                              ?.merge(TextStyle(fontStyle: FontStyle.italic)),
+                          trailing: IconButton(
+                            icon: FaIcon(
+                              molitva.zakaceno
+                                  ? FontAwesomeIcons.solidBookmark
+                                  : FontAwesomeIcons.bookmark,
+                              color: colors.primary,
+                            ),
+                            iconSize: textTheme.titleLarge?.fontSize,
+                            onPressed: () {
+                              setState(() {
+                                molitva.zakaceno = !molitva.zakaceno;
+                                _sacuvajStanjeZakacenih();
+                              });
+                            },
+                          ),
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) =>
+                                  ModalZaMolitvu(molitva: molitva),
+                              showDragHandle: true,
+                              isScrollControlled: true,
+                              useSafeArea: true,
+                            );
                           },
                         ),
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) =>
-                                ModalZaMolitvu(molitva: molitva),
-                            showDragHandle: true,
-                            isScrollControlled: true,
-                            useSafeArea: true,
-                          );
-                        },
-                      ),
-                    );
+                      );
+                    }
                   }),
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.magnifyingGlass,
-                          color: colors.primary,
-                          size: textTheme.titleLarge?.fontSize,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Flexible(
-                          child: Container(
-                            child: TextField(
-                              maxLines: 1,
-                              style: textTheme.titleMedium!.merge(TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: colors.primary,
-                              )),
-                              decoration: InputDecoration(
-                                contentPadding:
-                                EdgeInsets.symmetric(vertical: 0),
-                                border: InputBorder.none,
-                                hintText: "Претражите молитве",
+              child: Showcase(
+                key: _pretraga3,
+                targetBorderRadius: BorderRadius.circular(100),
+                tooltipBorderRadius: BorderRadius.circular(10),
+                tooltipPadding: EdgeInsets.all(15),
+                // onTargetClick: () {
+                //   _skrolujDo(_biblija3);
+                // },
+                titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                  color: colors.primary,
+                  fontWeight: FontWeight.bold,
+                )),
+                descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                  fontStyle: FontStyle.italic,
+                )),
+                title: 'Претрага молитви',
+                description:
+                    'Можете да претражите молитве по наслову и тексту.',
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.magnifyingGlass,
+                            color: colors.primary,
+                            size: textTheme.titleLarge?.fontSize,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: TextField(
+                                maxLines: 1,
+                                style: textTheme.titleMedium!.merge(TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colors.primary,
+                                )),
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 0),
+                                  border: InputBorder.none,
+                                  hintText: "Претражите молитве",
+                                ),
+                                controller: _kontrolerPretrage,
+                                onChanged: (String unos) {
+                                  _filtrirajMolitve(unos);
+                                },
                               ),
-                              controller: _kontrolerPretrage,
-                              onChanged: (String unos) {
-                                _filtrirajMolitve(unos);
-                              },
                             ),
                           ),
-                        ),
-                      ]),
+                        ]),
+                  ),
                 ),
               ),
             ),
