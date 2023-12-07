@@ -7,6 +7,8 @@ import 'package:veronauka/oglasi.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:veronauka/stranice.dart';
 import 'package:veronauka/informacije.dart';
@@ -21,6 +23,41 @@ void main() async {
 
   Box box = await Hive.openBox("parametri");
 
+  Future<String> _ucitajVerzijuAplikacije() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
+  Future<String?> _ucitajSacuvanuVerzijuAplikacije() async {
+    return box.get('verzija_aplikacije', defaultValue: null);
+  }
+
+  Future<void> _sacuvajVerzijuAplikacije(String verzija) async {
+    box.put('verzija_aplikacije', verzija);
+  }
+
+  String _verzijaAplikacije = await _ucitajVerzijuAplikacije();
+  String? _sacuvanaVerzijaAplikacije = await _ucitajSacuvanuVerzijuAplikacije();
+  bool _novKorisnik = _sacuvanaVerzijaAplikacije == null;
+  // bool _novaVerzija = _verzijaAplikacije != _sacuvanaVerzijaAplikacije;
+
+  print(
+      "${_verzijaAplikacije} : ${_sacuvanaVerzijaAplikacije} : ${_novKorisnik}");
+
+  if (_novKorisnik || true) {
+    box.put("prikazi_uputstva", {
+      "nov_korisnik": true,
+      "pocetna_nov_korisnik": true,
+      "molitve_nov_korisnik": true,
+      "biblija_nov_korisnik_glavno": true,
+      "biblija_nov_korisnik_citanje": true,
+      "kalendar_nov_korisnik": true,
+      "dobra_dela_nov_korisnik": true,
+    });
+  }
+
+  await _sacuvajVerzijuAplikacije(_verzijaAplikacije);
+
   runApp(MaterialApp(
     theme: ThemeData(
       colorScheme: lightColorScheme,
@@ -28,7 +65,11 @@ void main() async {
       useMaterial3: true,
     ),
     debugShowCheckedModeBanner: false,
-    home: App(),
+    home: ShowCaseWidget(
+      builder: Builder(
+        builder: (context) => App(),
+      ),
+    ),
   ));
 }
 
@@ -43,12 +84,18 @@ class _AppState extends State<App> {
   int _indeks = 0;
   BannerAd? _banner;
   bool _oglasiOmoguceni = true;
+  bool _novKorisnik = true;
 
   @override
   void initState() {
     super.initState();
 
-    _ucitajStanjeOmogucenostiOglasa();
+    setup();
+  }
+
+  void setup() async {
+    await _ucitajStanjeNovogKorisnika();
+    await _ucitajStanjeOmogucenostiOglasa();
 
     BannerAd(
       adUnitId: Oglasi.bannerAdUnitId,
@@ -73,7 +120,25 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-  void _ucitajStanjeOmogucenostiOglasa() async {
+  Future<void> _ucitajStanjeNovogKorisnika() async {
+    Box box = await Hive.box("parametri");
+    Map<dynamic, dynamic> prikaziUputstva =
+        box.get('prikazi_uputstva', defaultValue: {'nov_korisnik': true});
+
+    setState(() {
+      _novKorisnik = prikaziUputstva['nov_korisnik'];
+    });
+  }
+
+  Future<void> _sacuvajStanjeNovogKorisnika() async {
+    Box box = await Hive.box("parametri");
+    Map<dynamic, dynamic> prikaziUputstva = box.get('prikazi_uputstva');
+
+    prikaziUputstva['nov_korisnik'] = false;
+    box.put('prikazi_uputstva', prikaziUputstva);
+  }
+
+  Future<void> _ucitajStanjeOmogucenostiOglasa() async {
     // Ucitaj box parametara
     Box box = await Hive.box("parametri");
 
@@ -96,7 +161,7 @@ class _AppState extends State<App> {
       appBar: AppBar(
         backgroundColor: colors.background,
         title: Text(
-          stranice[_indeks].naslov,
+          _novKorisnik ? 'Добродошли!' : stranice[_indeks].naslov,
           style: textTheme.headlineMedium?.merge(
             TextStyle(color: colors.primary, fontWeight: FontWeight.bold),
           ),
@@ -118,51 +183,82 @@ class _AppState extends State<App> {
               ))
         ],
       ),
-      body: stranice[_indeks].stranicaBuilder(_idiNaIndeks),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BottomNavigationBar(
-            unselectedItemColor: colors.outlineVariant,
-            backgroundColor: colors.background,
-            selectedItemColor: colors.primary,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            elevation: 0,
-            currentIndex: _indeks,
-            type: BottomNavigationBarType.fixed,
-            onTap: _idiNaIndeks,
-            items: [
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.house),
-                label: 'Почетна',
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.personPraying),
-                label: 'Молитве',
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.bookBible),
-                label: 'Библија',
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.calendar),
-                label: 'Календар',
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.handHoldingHeart),
-                label: 'Добра дела',
-              ),
-            ],
-          ),
-          if (_banner != null && _oglasiOmoguceni)
-            Container(
-              width: _banner!.size.width.toDouble(),
-              height: _banner!.size.height.toDouble(),
-              child: AdWidget(ad: _banner!),
+      body: _novKorisnik
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/splash/splash-foreground-512.png'),
+                Text(
+                  'Хвала Вам што сте овде!',
+                  style: textTheme.titleMedium!.merge(
+                    TextStyle(
+                      color: colors.primary,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FilledButton(
+                  onPressed: () {
+                    _sacuvajStanjeNovogKorisnika();
+                    setState(() {
+                      _novKorisnik = false;
+                    });
+                  },
+                  child: Text('ЗАПОЧНИ'),
+                )
+              ],
+            )
+          : stranice[_indeks].stranicaBuilder(_idiNaIndeks),
+      bottomNavigationBar: _novKorisnik
+          ? null
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BottomNavigationBar(
+                  unselectedItemColor: colors.outlineVariant,
+                  backgroundColor: colors.background,
+                  selectedItemColor: colors.primary,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  elevation: 0,
+                  currentIndex: _indeks,
+                  type: BottomNavigationBarType.fixed,
+                  onTap: _idiNaIndeks,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.house),
+                      label: 'Почетна',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.personPraying),
+                      label: 'Молитве',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.bookBible),
+                      label: 'Библија',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.calendar),
+                      label: 'Календар',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: FaIcon(FontAwesomeIcons.handHoldingHeart),
+                      label: 'Добра дела',
+                    ),
+                  ],
+                ),
+                if (_banner != null && _oglasiOmoguceni)
+                  Container(
+                    width: _banner!.size.width.toDouble(),
+                    height: _banner!.size.height.toDouble(),
+                    child: AdWidget(ad: _banner!),
+                  ),
+              ],
             ),
-        ],
-      ),
     );
   }
 }
