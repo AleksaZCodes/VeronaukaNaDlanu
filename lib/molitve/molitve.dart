@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:veronauka/oglasi.dart';
 
 import 'package:veronauka/molitve/molitva.dart';
 import 'package:veronauka/latinica_cirilica.dart';
@@ -44,8 +47,9 @@ class _MolitveState extends State<Molitve> {
     });
 
     if (_prikaziUputstva["molitve_nov_korisnik"]) {
-      WidgetsBinding.instance.addPostFrameCallback(
-          (_) => ShowCaseWidget.of(context).startShowCase([_molitva1, _dugme_zakaci2, _pretraga3]));
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context)
+              .startShowCase([_molitva1, _dugme_zakaci2, _pretraga3]));
 
       setState(() {
         _prikaziUputstva["molitve_nov_korisnik"] = false;
@@ -370,43 +374,107 @@ class _MolitveState extends State<Molitve> {
   }
 }
 
-class ModalZaMolitvu extends StatelessWidget {
+class ModalZaMolitvu extends StatefulWidget {
   final Molitva molitva;
 
   const ModalZaMolitvu({super.key, required this.molitva});
 
   @override
+  State<ModalZaMolitvu> createState() => _ModalZaMolitvuState();
+}
+
+class _ModalZaMolitvuState extends State<ModalZaMolitvu> {
+  bool _oglasiOmoguceni = true;
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    setup();
+  }
+
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  void setup() async {
+    await _ucitajStanjeOmogucenostiOglasa();
+
+    if (_oglasiOmoguceni) {
+      BannerAd(
+        adUnitId: Oglasi.bannerAdUnitId,
+        request: AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            print('Failed to load a banner ad: ${err.message}');
+            ad.dispose();
+          },
+        ),
+      ).load();
+    }
+  }
+
+  Future<void> _ucitajStanjeOmogucenostiOglasa() async {
+    // Ucitaj box parametara
+    Box box = await Hive.box("parametri");
+
+    setState(() {
+      _oglasiOmoguceni = box.get('oglasi_omoguceni', defaultValue: true);
+    });
+  }
+
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                molitva.naslov,
-                style: textTheme.titleLarge?.merge(TextStyle(
-                    fontWeight: FontWeight.bold, color: colors.primary)),
-              ),
-              SizedBox(height: 20),
-              Text(
-                molitva.telo,
-                style: textTheme.bodyLarge,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Извор: ${molitva.izvor}',
-                style: textTheme.labelLarge
-                    ?.merge(TextStyle(color: colors.primary)),
-              ),
-            ],
+    return Stack(children: [
+      ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.molitva.naslov,
+                  style: textTheme.titleLarge?.merge(TextStyle(
+                      fontWeight: FontWeight.bold, color: colors.primary)),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  widget.molitva.telo,
+                  style: textTheme.bodyLarge,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Извор: ${widget.molitva.izvor}',
+                  style: textTheme.labelLarge
+                      ?.merge(TextStyle(color: colors.primary)),
+                ),
+                SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+      if (_bannerAd != null && _oglasiOmoguceni)
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
           ),
-        ),
-      ],
-    );
+        )
+    ]);
   }
 }
