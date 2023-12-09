@@ -44,7 +44,7 @@ void main() async {
   print(
       "${_verzijaAplikacije} : ${_sacuvanaVerzijaAplikacije} : ${_novKorisnik}");
 
-  if (_novKorisnik || true) {
+  if (_novKorisnik) {
     box.put("prikazi_uputstva", {
       "nov_korisnik": true,
       "pocetna_nov_korisnik": true,
@@ -82,7 +82,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int _indeks = 0;
-  BannerAd? _banner;
+  BannerAd? _bannerAd;
   bool _oglasiOmoguceni = true;
   bool _novKorisnik = true;
 
@@ -104,7 +104,7 @@ class _AppState extends State<App> {
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           setState(() {
-            _banner = ad as BannerAd;
+            _bannerAd = ad as BannerAd;
           });
         },
         onAdFailedToLoad: (ad, err) {
@@ -116,7 +116,7 @@ class _AppState extends State<App> {
   }
 
   void dispose() {
-    _banner?.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -251,11 +251,11 @@ class _AppState extends State<App> {
                     ),
                   ],
                 ),
-                if (_banner != null && _oglasiOmoguceni)
+                if (_bannerAd != null && _oglasiOmoguceni)
                   Container(
-                    width: _banner!.size.width.toDouble(),
-                    height: _banner!.size.height.toDouble(),
-                    child: AdWidget(ad: _banner!),
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!),
                   ),
               ],
             ),
