@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:veronauka/oglasi.dart';
 
 import 'package:veronauka/biblija/knjiga.dart';
 import 'package:veronauka/biblija/verzija.dart';
@@ -24,9 +26,12 @@ class _BiblijaState extends State<Biblija> {
   List<Knjiga> _knjige = [];
   List<Knjiga> _filtriraneKnjige = [];
   Map<dynamic, dynamic> _zakacenoPoglavlje = {};
+  // List<Map<dynamic, dynamic>> _kategorije = [];
+  // List<Map<dynamic, dynamic>> _potkategorije = [];
 
   GlobalKey _knjiga1 = GlobalKey();
   GlobalKey _pretraga2 = GlobalKey();
+  // GlobalKey _filteri3 = GlobalKey();
 
   Map<dynamic, dynamic> _prikaziUputstva = {};
 
@@ -40,6 +45,7 @@ class _BiblijaState extends State<Biblija> {
     await _ucitajVerzije();
     await _ucitajIzabranuVerziju();
     await _ucitajKnjige();
+    // await _ucitajKategorijeIPotkategorije();
     await _ucitajStanjeZakacenogPoglavlja();
 
     await _ucitajStanjePrikazivanjaUputstva();
@@ -137,6 +143,32 @@ class _BiblijaState extends State<Biblija> {
       _knjige.sort((a, b) => a.id - b.id);
     });
   }
+
+  // Future<void> _ucitajKategorijeIPotkategorije() async {
+  //   setState(
+  //     () {
+  //       for (int i = 0, len = _knjige.length; i < len; i++) {
+  //         Map<String, dynamic> kategorija = {
+  //           "naslov": _knjige[i].kategorija,
+  //           "stanje": true
+  //         };
+  //         Map<String, dynamic> potkategorija = {
+  //           "naslov": _knjige[i].potkategorija,
+  //           "stanje": true
+  //         };
+  //
+  //         if (!_kategorije.any(
+  //             (element) => element['naslov'] == kategorija['naslov'])) {
+  //           _kategorije.add(kategorija);
+  //         }
+  //         if (!_potkategorije.any((element) =>
+  //             element['naslov'] == potkategorija['naslov'])) {
+  //           _potkategorije.add(potkategorija);
+  //         }
+  //       }
+  //     },
+  //   );
+  // }
 
   Future<void> _ucitajStanjeZakacenogPoglavlja() async {
     Box box = await Hive.box("parametri");
@@ -305,6 +337,138 @@ class _BiblijaState extends State<Biblija> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        // Showcase(
+                        //   key: _filteri3,
+                        //   targetBorderRadius: BorderRadius.circular(100),
+                        //   tooltipBorderRadius: BorderRadius.circular(10),
+                        //   tooltipPadding: EdgeInsets.all(15),
+                        //   // onTargetClick: () {
+                        //   //   _skrolujDo(_biblija3);
+                        //   // },
+                        //   titleTextStyle:
+                        //       textTheme.titleMedium?.merge(TextStyle(
+                        //     color: colors.primary,
+                        //     fontWeight: FontWeight.bold,
+                        //   )),
+                        //   descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                        //     fontStyle: FontStyle.italic,
+                        //   )),
+                        //   title: 'Филтрирање књига',
+                        //   description:
+                        //       'Можете да филтрирате и претражите књиге по категорији и поткатегорији.',
+                        //   child: IconButton(
+                        //     onPressed: () async {
+                        //       await showModalBottomSheet(
+                        //         context: context,
+                        //         builder: (context) => Padding(
+                        //           padding: EdgeInsets.symmetric(horizontal: 10),
+                        //           child: Column(
+                        //             mainAxisSize: MainAxisSize.min,
+                        //             crossAxisAlignment:
+                        //                 CrossAxisAlignment.start,
+                        //             children: [
+                        //               Text(
+                        //                 'Категорија',
+                        //                 style: textTheme.titleLarge?.merge(
+                        //                   TextStyle(
+                        //                     color: colors.primary,
+                        //                     fontWeight: FontWeight.bold,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 10,
+                        //               ),
+                        //               Wrap(
+                        //                 children: [
+                        //                   for (int i = 0,
+                        //                           len = _kategorije.length;
+                        //                       i < len;
+                        //                       i++)
+                        //                     Row(
+                        //                       mainAxisSize: MainAxisSize.min,
+                        //                       children: [
+                        //                         FilterChip(
+                        //                           label: Text(_kategorije[i]
+                        //                               ['naslov']),
+                        //                           selected: _kategorije[i]
+                        //                               ['stanje'],
+                        //                           onSelected: (stanje) {
+                        //                             setState(() {
+                        //                               _kategorije[i]['stanje'] =
+                        //                                   stanje;
+                        //                             });
+                        //                           },
+                        //                         ),
+                        //                         if (i < len - 1)
+                        //                           SizedBox(
+                        //                             width: 10,
+                        //                           ),
+                        //                       ],
+                        //                     )
+                        //                 ],
+                        //               ),
+                        //               SizedBox(height: 10,),
+                        //               Text(
+                        //                 'Поткатегорија',
+                        //                 style: textTheme.titleLarge?.merge(
+                        //                   TextStyle(
+                        //                     color: colors.primary,
+                        //                     fontWeight: FontWeight.bold,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 10,
+                        //               ),
+                        //               Wrap(
+                        //                 children: [
+                        //                   for (int i = 0,
+                        //                       len = _potkategorije.length;
+                        //                   i < len;
+                        //                   i++)
+                        //                     Row(
+                        //                       mainAxisSize: MainAxisSize.min,
+                        //                       children: [
+                        //                         FilterChip(
+                        //                           label: Text(_potkategorije[i]
+                        //                           ['naslov']),
+                        //                           selected: _potkategorije[i]
+                        //                           ['stanje'],
+                        //                           onSelected: (stanje) {
+                        //                             setState(() {
+                        //                               _kategorije[i]['stanje'] =
+                        //                                   stanje;
+                        //                             });
+                        //                           },
+                        //                         ),
+                        //                         if (i < len - 1)
+                        //                           SizedBox(
+                        //                             width: 10,
+                        //                           ),
+                        //                       ],
+                        //                     )
+                        //                 ],
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         showDragHandle: true,
+                        //         isScrollControlled: true,
+                        //         useSafeArea: true,
+                        //       );
+                        //     },
+                        //     icon: FaIcon(
+                        //       FontAwesomeIcons.filter,
+                        //       size: textTheme.titleLarge?.fontSize,
+                        //       color: colors.primary,
+                        //     ),
+                        //     color: colors.surfaceVariant,
+                        //   ),
+                        // ),
                       ]),
                 ),
               ),
@@ -423,6 +587,7 @@ class ModalZaCitanje extends StatefulWidget {
   final List<dynamic> sadrzaj;
   final int indeksPoglavlja;
   final Function(Map<dynamic, dynamic>) sacuvajStanjeZakacenogPoglavlja;
+  final bool oglasiOmoguceni;
 
   const ModalZaCitanje({
     super.key,
@@ -430,6 +595,7 @@ class ModalZaCitanje extends StatefulWidget {
     required this.sadrzaj,
     this.indeksPoglavlja = 0,
     required this.sacuvajStanjeZakacenogPoglavlja,
+    this.oglasiOmoguceni = true,
   });
 
   @override
@@ -442,6 +608,9 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
   int _indeks_zakacenog_poglavlja = -1;
   int _id_zakacene_knjige = -1;
   late ScrollController _skrolKontroler;
+  late bool _oglasiOmoguceni = true;
+
+  BannerAd? _bannerAd;
 
   GlobalKey _naslov1 = GlobalKey();
   GlobalKey _podnaslov2 = GlobalKey();
@@ -462,7 +631,27 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
       _knjiga = widget.knjiga;
       _indeks_poglavlja = widget.indeksPoglavlja;
       _skrolKontroler = ScrollController();
+      _oglasiOmoguceni = widget.oglasiOmoguceni;
     });
+
+    if (_oglasiOmoguceni) {
+      BannerAd(
+        adUnitId: Oglasi.bannerAdUnitId,
+        request: AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            print('Failed to load a banner ad: ${err.message}');
+            ad.dispose();
+          },
+        ),
+      ).load();
+    }
 
     await _ucitajStanjeZakacenog();
     await _ucitajStanjePrikazivanjaUputstva();
@@ -470,6 +659,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
 
   void dispose() {
     _skrolKontroler.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -523,8 +713,8 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
       builder: Builder(builder: (context) {
         if (_prikaziUputstva["biblija_nov_korisnik_citanje"] ?? false) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
-              ShowCaseWidget.of(context)
-                  .startShowCase([_naslov1, _podnaslov2, _stih3, _kontrole4, _dugme_zakaci5]));
+              ShowCaseWidget.of(context).startShowCase(
+                  [_naslov1, _podnaslov2, _stih3, _kontrole4, _dugme_zakaci5]));
 
           _prikaziUputstva["biblija_nov_korisnik_citanje"] = false;
 
@@ -559,8 +749,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                           fontStyle: FontStyle.italic,
                         )),
                         title: 'Наслов књиге',
-                        description:
-                            'Овде се налази наслов отворене књиге.',
+                        description: 'Овде се налази наслов отворене књиге.',
                         child: Text(
                           _knjiga.naslov,
                           style: textTheme.titleLarge?.merge(
@@ -607,7 +796,8 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                             ? Showcase(
                                 key: _stih3,
                                 targetBorderRadius: BorderRadius.circular(13),
-                                targetPadding: EdgeInsets.symmetric(horizontal: 5),
+                                targetPadding:
+                                    EdgeInsets.symmetric(horizontal: 5),
                                 tooltipBorderRadius: BorderRadius.circular(10),
                                 tooltipPadding: EdgeInsets.all(15),
                                 // onTargetClick: () {
@@ -643,124 +833,137 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
 
             // Kontrole na dnu
             Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Showcase(
-                    key: _kontrole4,
-                    targetBorderRadius: BorderRadius.circular(13),
-                    tooltipBorderRadius: BorderRadius.circular(10),
-                    tooltipPadding: EdgeInsets.all(15),
-                    // onTargetClick: () {
-                    //   _skrolujDo(_biblija3);
-                    // },
-                    titleTextStyle:
-                    textTheme.titleMedium?.merge(TextStyle(
-                      color: colors.primary,
-                      fontWeight: FontWeight.bold,
-                    )),
-                    descTextStyle:
-                    textTheme.bodyMedium?.merge(TextStyle(
-                      fontStyle: FontStyle.italic,
-                    )),
-                    title: 'Контроле',
-                    description:
-                    'Овде можете да прелиставате књигу по поглављима и видите на којем сте тренутно.',
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Dugme prethodno
-                      FloatingActionButton.small(
-                        onPressed: () {
-                          setState(() {
-                            if (_indeks_poglavlja > 0) {
-                              _indeks_poglavlja--;
-                              _skrolKontroler.jumpTo(0);
-                            }
-                          });
-                        },
-                        child: FaIcon(
-                          FontAwesomeIcons.caretLeft,
-                          size: textTheme.displaySmall?.fontSize,
-                          color: colors.primary,
-                        ),
-                        backgroundColor: colors.surfaceVariant,
-                      ),
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: _bannerAd != null ? EdgeInsets.symmetric(horizontal: 20) : EdgeInsets.all(20),
+                    child: Showcase(
+                      key: _kontrole4,
+                      targetBorderRadius: BorderRadius.circular(13),
+                      tooltipBorderRadius: BorderRadius.circular(10),
+                      tooltipPadding: EdgeInsets.all(15),
+                      // onTargetClick: () {
+                      //   _skrolujDo(_biblija3);
+                      // },
+                      titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                        color: colors.primary,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                        fontStyle: FontStyle.italic,
+                      )),
+                      title: 'Контроле',
+                      description:
+                          'Овде можете да прелиставате књигу по поглављима и видите на којем сте тренутно.',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Dugme prethodno
+                          FloatingActionButton.small(
+                            onPressed: () {
+                              setState(() {
+                                if (_indeks_poglavlja > 0) {
+                                  _indeks_poglavlja--;
+                                  _skrolKontroler.jumpTo(0);
+                                }
+                              });
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.caretLeft,
+                              size: textTheme.displaySmall?.fontSize,
+                              color: colors.primary,
+                            ),
+                            backgroundColor: colors.surfaceVariant,
+                          ),
 
-                      // Naslov poglavlja
-                      Flexible(
-                        child: Card(
-                          elevation: 5,
-                          child: Container(
-                            padding: EdgeInsets.all(11),
-                            child: Text(
-                              "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: colors.primary,
+                          // Naslov poglavlja
+                          Flexible(
+                            child: Card(
+                              elevation: 5,
+                              child: Container(
+                                padding: EdgeInsets.all(11),
+                                child: Text(
+                                  "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: colors.primary,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
 
-                      // Dugme zakaci
-                      Showcase(
-                        key: _dugme_zakaci5,
-                        targetBorderRadius: BorderRadius.circular(13),
-                        tooltipBorderRadius: BorderRadius.circular(10),
-                        tooltipPadding: EdgeInsets.all(15),
-                        // onTargetClick: () {
-                        //   _skrolujDo(_biblija3);
-                        // },
-                        titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                          color: colors.primary,
-                          fontWeight: FontWeight.bold,
-                        )),
-                        descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                          fontStyle: FontStyle.italic,
-                        )),
-                        title: 'Ставите обележивач',
-                        description:
-                        'Када завршите са читањем, оставите обележивач како бисте могли да наставите.',
-                        child: FloatingActionButton.small(
-                          onPressed: () {
-                            _sacuvajStanjeZakacenog();
-                            Navigator.pop(context);
-                          },
-                          child: FaIcon(
-                            _indeks_poglavlja == _indeks_zakacenog_poglavlja &&
-                                    _knjiga.id == _id_zakacene_knjige
-                                ? FontAwesomeIcons.solidBookmark
-                                : FontAwesomeIcons.bookmark,
-                            size: textTheme.titleLarge?.fontSize,
-                            color: colors.primary,
+                          // Dugme zakaci
+                          Showcase(
+                            key: _dugme_zakaci5,
+                            targetBorderRadius: BorderRadius.circular(13),
+                            tooltipBorderRadius: BorderRadius.circular(10),
+                            tooltipPadding: EdgeInsets.all(15),
+                            // onTargetClick: () {
+                            //   _skrolujDo(_biblija3);
+                            // },
+                            titleTextStyle:
+                                textTheme.titleMedium?.merge(TextStyle(
+                              color: colors.primary,
+                              fontWeight: FontWeight.bold,
+                            )),
+                            descTextStyle:
+                                textTheme.bodyMedium?.merge(TextStyle(
+                              fontStyle: FontStyle.italic,
+                            )),
+                            title: 'Ставите обележивач',
+                            description:
+                                'Када завршите са читањем, оставите обележивач како бисте могли да наставите.',
+                            child: FloatingActionButton.small(
+                              onPressed: () {
+                                _sacuvajStanjeZakacenog();
+                                Navigator.pop(context);
+                              },
+                              child: FaIcon(
+                                _indeks_poglavlja ==
+                                            _indeks_zakacenog_poglavlja &&
+                                        _knjiga.id == _id_zakacene_knjige
+                                    ? FontAwesomeIcons.solidBookmark
+                                    : FontAwesomeIcons.bookmark,
+                                size: textTheme.titleLarge?.fontSize,
+                                color: colors.primary,
+                              ),
+                              backgroundColor: colors.surfaceVariant,
+                            ),
                           ),
-                          backgroundColor: colors.surfaceVariant,
-                        ),
-                      ),
 
-                      // Dugme sledece
-                      FloatingActionButton.small(
-                        onPressed: () {
-                          setState(() {
-                            if (_indeks_poglavlja < widget.sadrzaj.length - 1) {
-                              _indeks_poglavlja++;
-                              _skrolKontroler.jumpTo(0);
-                            }
-                          });
-                        },
-                        child: FaIcon(
-                          FontAwesomeIcons.caretRight,
-                          size: textTheme.displaySmall?.fontSize,
-                          color: colors.primary,
-                        ),
-                        backgroundColor: colors.surfaceVariant,
+                          // Dugme sledece
+                          FloatingActionButton.small(
+                            onPressed: () {
+                              setState(() {
+                                if (_indeks_poglavlja <
+                                    widget.sadrzaj.length - 1) {
+                                  _indeks_poglavlja++;
+                                  _skrolKontroler.jumpTo(0);
+                                }
+                              });
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.caretRight,
+                              size: textTheme.displaySmall?.fontSize,
+                              color: colors.primary,
+                            ),
+                            backgroundColor: colors.surfaceVariant,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  if (_bannerAd != null && _oglasiOmoguceni)
+                    Container(
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!),
+                  ),
+                ],
               ),
             ),
           ],
