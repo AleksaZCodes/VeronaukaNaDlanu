@@ -130,12 +130,16 @@ class _AppState extends State<App> {
     });
   }
 
-  Future<void> _sacuvajStanjeNovogKorisnika() async {
+  Future<void> _sacuvajStanjeNovogKorisnika(bool stanje) async {
     Box box = await Hive.box("parametri");
     Map<dynamic, dynamic> prikaziUputstva = box.get('prikazi_uputstva');
 
-    prikaziUputstva['nov_korisnik'] = false;
+    prikaziUputstva['nov_korisnik'] = stanje;
     box.put('prikazi_uputstva', prikaziUputstva);
+
+    setState(() {
+      _novKorisnik = stanje;
+    });
   }
 
   Future<void> _ucitajStanjeOmogucenostiOglasa() async {
@@ -168,19 +172,40 @@ class _AppState extends State<App> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => Informacije(),
-                  showDragHandle: true,
-                  isScrollControlled: true,
-                  useSafeArea: true,
-                );
-              },
-              icon: FaIcon(
-                FontAwesomeIcons.ellipsisVertical,
-                color: colors.primary,
-              ))
+            onPressed: () async {
+              _sacuvajStanjeNovogKorisnika(true);
+
+              Box box = await Hive.box("parametri");
+              box.put("prikazi_uputstva", {
+                "nov_korisnik": true,
+                "pocetna_nov_korisnik": true,
+                "molitve_nov_korisnik": true,
+                "biblija_nov_korisnik_glavno": true,
+                "biblija_nov_korisnik_citanje": true,
+                "kalendar_nov_korisnik": true,
+                "dobra_dela_nov_korisnik": true,
+              });
+            },
+            icon: FaIcon(
+              FontAwesomeIcons.questionCircle,
+              color: colors.primary,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => Informacije(),
+                showDragHandle: true,
+                isScrollControlled: true,
+                useSafeArea: true,
+              );
+            },
+            icon: FaIcon(
+              FontAwesomeIcons.ellipsisVertical,
+              color: colors.primary,
+            ),
+          )
         ],
       ),
       body: _novKorisnik
@@ -189,27 +214,47 @@ class _AppState extends State<App> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset('assets/splash/splash-foreground-512.png'),
-                Text(
-                  'Хвала Вам што сте овде!',
-                  style: textTheme.titleMedium!.merge(
-                    TextStyle(
-                      color: colors.primary,
+                // Text(
+                //   'Хвала Вам што сте овде!',
+                //   style: textTheme.titleMedium!.merge(
+                //     TextStyle(
+                //       color: colors.primary,
+                //     ),
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FilledButton(
+                      onPressed: () {
+                        _sacuvajStanjeNovogKorisnika(false);
+                      },
+                      child: Text('Упутство'),
                     ),
-                  ),
-                  textAlign: TextAlign.center,
+                    SizedBox(width: 8,),
+                    OutlinedButton(
+                      onPressed: () async {
+                        _sacuvajStanjeNovogKorisnika(false);
+
+                        Box box = await Hive.box("parametri");
+                        box.put("prikazi_uputstva", {
+                          "nov_korisnik": false,
+                          "pocetna_nov_korisnik": false,
+                          "molitve_nov_korisnik": false,
+                          "biblija_nov_korisnik_glavno": false,
+                          "biblija_nov_korisnik_citanje": false,
+                          "kalendar_nov_korisnik": false,
+                          "dobra_dela_nov_korisnik": false,
+                        });
+                      },
+                      child: Text('Прескочи'),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                FilledButton(
-                  onPressed: () {
-                    _sacuvajStanjeNovogKorisnika();
-                    setState(() {
-                      _novKorisnik = false;
-                    });
-                  },
-                  child: Text('ЗАПОЧНИ'),
-                )
               ],
             )
           : stranice[_indeks].stranicaBuilder(_idiNaIndeks),
