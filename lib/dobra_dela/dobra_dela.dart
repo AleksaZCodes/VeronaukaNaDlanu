@@ -95,7 +95,7 @@ class _DobraDelaState extends State<DobraDela> {
   }
 
   Future<void> _ucitajOglas() async {
-    RewardedAd.load(
+    await RewardedAd.load(
         adUnitId: Oglasi.rewardedAdUnitId,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
@@ -118,7 +118,17 @@ class _DobraDelaState extends State<DobraDela> {
     await _ucitajOglas();
 
     if (_rewardedAd != null) {
-      _rewardedAd?.show(onUserEarnedReward: (reward, item) {});
+      _rewardedAd?.show(onUserEarnedReward: (reward, item) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Хвала што сте погледали оглас!\nУчинили сте добро дело.", // Број прегледаних огласа: ${1}
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+          ),
+        );
+      });
     }
   }
 
@@ -185,11 +195,13 @@ class _DobraDelaState extends State<DobraDela> {
                 {
                   'stanje': _oglasiOmoguceni && _rewardedAd != null,
                   'tekst': 'Прикажи оглас',
-                  'callback': () async {
-                    await _prikaziOglas();
+                  'callback': () {
+                    _prikaziOglas();
                   },
                   'tekst_kliknuto': 'Учитава се...',
-                  'callback_kliknuto': () {}
+                  'callback_kliknuto': () {
+                    _ucitajOglas();
+                  }
                 }
               ],
             ),
@@ -216,7 +228,7 @@ class _DobraDelaState extends State<DobraDela> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            "Хвала на дељењу! Учинили сте добро дело.",
+                            "Хвала на дељењу!\nУчинили сте добро дело.",
                             style: textTheme.bodyMedium,
                           ),
                           backgroundColor: colors.surfaceVariant,
