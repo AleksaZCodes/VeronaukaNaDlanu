@@ -1,4 +1,4 @@
-package com.aleksazcodes.veronauka.veronauka
+package com.aleksazcodes.veronauka.veronaukanadlanu
 
 import io.flutter.embedding.android.FlutterActivity
 
