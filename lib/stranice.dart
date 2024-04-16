@@ -9,29 +9,56 @@ import 'package:veronauka/kalendar/kalendar.dart';
 List<Stranica> stranice = [
   Stranica(
     naslov: 'Помаже Бог!',
-    stranicaBuilder: (idiNaIndeks) => Pocetna(idiNaIndeks: idiNaIndeks),
+    stranicaBuilder: (idiNaIndeks, latinica) => PopScope(
+      canPop: false,
+      child: Pocetna(idiNaIndeks: idiNaIndeks, latinica: latinica),
+    ),
   ),
   Stranica(
     naslov: 'Молитве',
-    stranicaBuilder: (idiNaIndeks) => Molitve(),
+    stranicaBuilder: (idiNaIndeks, latinica) => PopScope(
+      canPop: false,
+      child: Molitve(latinica: latinica),
+      onPopInvoked: (_) {
+        idiNaIndeks(0);
+      },
+    ),
   ),
   Stranica(
     naslov: 'Свето Писмо',
-    stranicaBuilder: (idiNaIndeks) => Biblija(),
+    stranicaBuilder: (idiNaIndeks, latinica) => PopScope(
+      canPop: false,
+      child: Biblija(latinica: latinica),
+      onPopInvoked: (_) {
+        idiNaIndeks(0);
+      },
+    ),
   ),
   Stranica(
     naslov: 'Календар',
-    stranicaBuilder: (idiNaIndeks) => Kalendar(),
+    stranicaBuilder: (idiNaIndeks, latinica) => PopScope(
+      canPop: false,
+      child: Kalendar(latinica: latinica),
+      onPopInvoked: (_) {
+        idiNaIndeks(0);
+      },
+    ),
   ),
   Stranica(
     naslov: 'Добра дела',
-    stranicaBuilder: (idiNaIndeks) => DobraDela(),
+    stranicaBuilder: (idiNaIndeks, latinica) => PopScope(
+      canPop: false,
+      child: DobraDela(latinica: latinica),
+      onPopInvoked: (_) {
+        idiNaIndeks(0);
+      },
+    ),
   ),
 ];
 
 class Stranica {
   String naslov;
-  Widget Function(Function(int)) stranicaBuilder;
+  Widget Function(Function(int), bool) stranicaBuilder;
 
   Stranica({
     required this.naslov,

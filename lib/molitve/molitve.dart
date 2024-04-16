@@ -13,7 +13,9 @@ import 'package:veronauka/molitve/molitva.dart';
 import 'package:veronauka/latinica_cirilica.dart';
 
 class Molitve extends StatefulWidget {
-  const Molitve({super.key});
+  final bool latinica;
+
+  const Molitve({super.key, required this.latinica});
 
   @override
   State<Molitve> createState() => _MolitveState();
@@ -23,10 +25,10 @@ class _MolitveState extends State<Molitve> {
   TextEditingController _kontrolerPretrage = TextEditingController();
   List<Molitva> _molitve = [];
   List<Molitva> _filtriraneMolitve = [];
+  bool _latinica = false;
 
   GlobalKey _molitva1 = GlobalKey();
   GlobalKey _dugme_zakaci2 = GlobalKey();
-  GlobalKey _pretraga3 = GlobalKey();
 
   Map<dynamic, dynamic> _prikaziUputstva = {};
 
@@ -44,12 +46,13 @@ class _MolitveState extends State<Molitve> {
 
     setState(() {
       _filtriraneMolitve = _molitve;
+      _latinica = widget.latinica;
     });
 
     if (_prikaziUputstva["molitve_nov_korisnik"]) {
       WidgetsBinding.instance.addPostFrameCallback((_) =>
           ShowCaseWidget.of(context)
-              .startShowCase([_molitva1, _dugme_zakaci2, _pretraga3]));
+              .startShowCase([_molitva1, _dugme_zakaci2]));
 
       setState(() {
         _prikaziUputstva["molitve_nov_korisnik"] = false;
@@ -177,16 +180,21 @@ class _MolitveState extends State<Molitve> {
                         descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                           fontStyle: FontStyle.italic,
                         )),
-                        title: 'Молитва',
-                        description:
-                            'Ово је једна молитва из листе. Можете да је прочитате кликом на њу.',
+                        title:
+                            _latinica ? cirilicaLatinica('Молитва') : 'Молитва',
+                        description: _latinica
+                            ? cirilicaLatinica(
+                                'Ово је једна молитва из листе. Можете да је прочитате кликом на њу.')
+                            : 'Ово је једна молитва из листе. Можете да је прочитате кликом на њу.',
                         child: Card(
                           key: ValueKey(molitva.id),
                           child: ListTile(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            title: Text(molitva.naslov),
+                            title: Text(_latinica
+                                ? cirilicaLatinica(molitva.naslov)
+                                : molitva.naslov),
                             titleTextStyle:
                                 textTheme.titleMedium?.merge(TextStyle(
                               color: colors.primary,
@@ -194,7 +202,11 @@ class _MolitveState extends State<Molitve> {
                             )),
                             subtitle: Text(
                               // Zameni \n sa razmakom za vise prikazanog teksta
-                              molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
+                              _latinica
+                                  ? cirilicaLatinica(molitva.telo
+                                      .replaceAll(RegExp(r'\n\s*'), ' '))
+                                  : molitva.telo
+                                      .replaceAll(RegExp(r'\n\s*'), ' '),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -217,9 +229,13 @@ class _MolitveState extends State<Molitve> {
                                   textTheme.bodyMedium?.merge(TextStyle(
                                 fontStyle: FontStyle.italic,
                               )),
-                              title: 'Закачите молитву',
-                              description:
-                                  'Можете да закачите молитву на врх листе како би била на дохват руке.',
+                              title: _latinica
+                                  ? cirilicaLatinica('Закачите молитву')
+                                  : 'Закачите молитву',
+                              description: _latinica
+                                  ? cirilicaLatinica(
+                                      'Можете да закачите молитву на врх листе како би била на дохват руке.')
+                                  : 'Можете да закачите молитву на врх листе како би била на дохват руке.',
                               child: IconButton(
                                 icon: FaIcon(
                                   molitva.zakaceno
@@ -239,8 +255,10 @@ class _MolitveState extends State<Molitve> {
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
-                                builder: (context) =>
-                                    ModalZaMolitvu(molitva: molitva),
+                                builder: (context) => ModalZaMolitvu(
+                                  molitva: molitva,
+                                  latinica: _latinica,
+                                ),
                                 showDragHandle: true,
                                 isScrollControlled: true,
                                 useSafeArea: true,
@@ -256,7 +274,9 @@ class _MolitveState extends State<Molitve> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          title: Text(molitva.naslov),
+                          title: Text(_latinica
+                              ? cirilicaLatinica(molitva.naslov)
+                              : molitva.naslov),
                           titleTextStyle:
                               textTheme.titleMedium?.merge(TextStyle(
                             color: colors.primary,
@@ -264,7 +284,11 @@ class _MolitveState extends State<Molitve> {
                           )),
                           subtitle: Text(
                             // Zameni \n sa razmakom za vise prikazanog teksta
-                            molitva.telo.replaceAll(RegExp(r'\n\s*'), ' '),
+                            _latinica
+                                ? cirilicaLatinica(molitva.telo
+                                    .replaceAll(RegExp(r'\n\s*'), ' '))
+                                : molitva.telo
+                                    .replaceAll(RegExp(r'\n\s*'), ' '),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -288,8 +312,10 @@ class _MolitveState extends State<Molitve> {
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
-                              builder: (context) =>
-                                  ModalZaMolitvu(molitva: molitva),
+                              builder: (context) => ModalZaMolitvu(
+                                molitva: molitva,
+                                latinica: _latinica,
+                              ),
                               showDragHandle: true,
                               isScrollControlled: true,
                               useSafeArea: true,
@@ -302,64 +328,47 @@ class _MolitveState extends State<Molitve> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Showcase(
-                key: _pretraga3,
-                targetBorderRadius: BorderRadius.circular(100),
-                tooltipBorderRadius: BorderRadius.circular(10),
-                tooltipPadding: EdgeInsets.all(15),
-                // onTargetClick: () {
-                //   _skrolujDo(_biblija3);
-                // },
-                titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                  color: colors.primary,
-                  fontWeight: FontWeight.bold,
-                )),
-                descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                  fontStyle: FontStyle.italic,
-                )),
-                title: 'Претрага молитви',
-                description:
-                    'Можете да претражите молитве по наслову и тексту.',
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.magnifyingGlass,
-                            color: colors.primary,
-                            size: textTheme.titleLarge?.fontSize,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: TextField(
-                                maxLines: 1,
-                                style: textTheme.titleMedium!.merge(TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: colors.primary,
-                                )),
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 0),
-                                  border: InputBorder.none,
-                                  hintText: "Претражите молитве",
-                                ),
-                                controller: _kontrolerPretrage,
-                                onChanged: (String unos) {
-                                  _filtrirajMolitve(unos);
-                                },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          color: colors.primary,
+                          size: textTheme.titleLarge?.fontSize,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Flexible(
+                          child: Container(
+                            child: TextField(
+                              maxLines: 1,
+                              style: textTheme.titleMedium!.merge(TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: colors.primary,
+                              )),
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 0),
+                                border: InputBorder.none,
+                                hintText: _latinica
+                                    ? cirilicaLatinica("Претражите молитве")
+                                    : "Претражите молитве",
                               ),
+                              controller: _kontrolerPretrage,
+                              onChanged: (String unos) {
+                                _filtrirajMolitve(unos);
+                              },
                             ),
                           ),
-                        ]),
-                  ),
+                        ),
+                      ]),
                 ),
               ),
             ),
@@ -376,8 +385,10 @@ class _MolitveState extends State<Molitve> {
 
 class ModalZaMolitvu extends StatefulWidget {
   final Molitva molitva;
+  final bool latinica;
 
-  const ModalZaMolitvu({super.key, required this.molitva});
+  const ModalZaMolitvu(
+      {super.key, required this.molitva, required this.latinica});
 
   @override
   State<ModalZaMolitvu> createState() => _ModalZaMolitvuState();
@@ -386,6 +397,7 @@ class ModalZaMolitvu extends StatefulWidget {
 class _ModalZaMolitvuState extends State<ModalZaMolitvu> {
   bool _oglasiOmoguceni = true;
   BannerAd? _bannerAd;
+  bool _latinica = false;
 
   @override
   void initState() {
@@ -400,6 +412,10 @@ class _ModalZaMolitvuState extends State<ModalZaMolitvu> {
 
   void setup() async {
     await _ucitajStanjeOmogucenostiOglasa();
+
+    setState(() {
+      _latinica = widget.latinica;
+    });
 
     if (_oglasiOmoguceni) {
       BannerAd(
@@ -443,18 +459,24 @@ class _ModalZaMolitvuState extends State<ModalZaMolitvu> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.molitva.naslov,
+                  _latinica
+                      ? cirilicaLatinica(widget.molitva.naslov)
+                      : widget.molitva.naslov,
                   style: textTheme.titleLarge?.merge(TextStyle(
                       fontWeight: FontWeight.bold, color: colors.primary)),
                 ),
                 SizedBox(height: 20),
                 Text(
-                  widget.molitva.telo,
+                  _latinica
+                      ? cirilicaLatinica(widget.molitva.telo)
+                      : widget.molitva.telo,
                   style: textTheme.bodyLarge,
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Извор: ${widget.molitva.izvor}',
+                  _latinica
+                      ? cirilicaLatinica('Извор: ${widget.molitva.izvor}')
+                      : 'Извор: ${widget.molitva.izvor}',
                   style: textTheme.labelLarge
                       ?.merge(TextStyle(color: colors.primary)),
                 ),

@@ -13,7 +13,9 @@ import 'package:veronauka/biblija/verzija.dart';
 import 'package:veronauka/latinica_cirilica.dart';
 
 class Biblija extends StatefulWidget {
-  const Biblija({super.key});
+  final bool latinica;
+
+  const Biblija({super.key, required this.latinica});
 
   @override
   State<Biblija> createState() => _BiblijaState();
@@ -26,11 +28,14 @@ class _BiblijaState extends State<Biblija> {
   List<Knjiga> _knjige = [];
   List<Knjiga> _filtriraneKnjige = [];
   Map<dynamic, dynamic> _zakacenoPoglavlje = {};
+  bool _latinica = false;
+
   // List<Map<dynamic, dynamic>> _kategorije = [];
   // List<Map<dynamic, dynamic>> _potkategorije = [];
 
   GlobalKey _knjiga1 = GlobalKey();
-  GlobalKey _pretraga2 = GlobalKey();
+
+  // GlobalKey _pretraga2 = GlobalKey();
   // GlobalKey _filteri3 = GlobalKey();
 
   Map<dynamic, dynamic> _prikaziUputstva = {};
@@ -52,11 +57,12 @@ class _BiblijaState extends State<Biblija> {
 
     setState(() {
       _filtriraneKnjige = _knjige;
+      _latinica = widget.latinica;
     });
 
     if (_prikaziUputstva["biblija_nov_korisnik_glavno"]) {
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-          ShowCaseWidget.of(context).startShowCase([_knjiga1, _pretraga2]));
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => ShowCaseWidget.of(context).startShowCase([_knjiga1]));
 
       setState(() {
         _prikaziUputstva["biblija_nov_korisnik_glavno"] = false;
@@ -140,6 +146,11 @@ class _BiblijaState extends State<Biblija> {
             potkategorija: dekodiraneKnjige[i]['potkategorija']!,
           )
       ];
+    });
+  }
+
+  void _sortirajKnjige() {
+    setState(() {
       _knjige.sort((a, b) => a.id - b.id);
     });
   }
@@ -173,7 +184,7 @@ class _BiblijaState extends State<Biblija> {
   Future<void> _ucitajStanjeZakacenogPoglavlja() async {
     Box box = await Hive.box("parametri");
     Map<dynamic, dynamic>? zakacenoPoglavlje =
-        box.get('indeks_zakacenog_poglavlja', defaultValue: null);
+        box.get('zakaceno_poglavlje', defaultValue: null);
 
     if (zakacenoPoglavlje != null) {
       // Sacuvaj u stanje
@@ -183,8 +194,11 @@ class _BiblijaState extends State<Biblija> {
     }
   }
 
-  void _sacuvajStanjeZakacenogPoglavlja(
-      Map<dynamic, dynamic> novoZakacenoPoglavlje) {
+  Future<void> _sacuvajStanjeZakacenogPoglavlja(
+      Map<dynamic, dynamic> novoZakacenoPoglavlje) async {
+    Box box = await Hive.box("parametri");
+    box.put('zakaceno_poglavlje', novoZakacenoPoglavlje);
+
     setState(() {
       _zakacenoPoglavlje = novoZakacenoPoglavlje;
     });
@@ -255,15 +269,21 @@ class _BiblijaState extends State<Biblija> {
                       descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                         fontStyle: FontStyle.italic,
                       )),
-                      title: 'Књига Библије',
-                      description:
-                          'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.',
+                      title: _latinica
+                          ? cirilicaLatinica('Књига Библије')
+                          : 'Књига Библије',
+                      description: _latinica
+                          ? cirilicaLatinica(
+                              'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.')
+                          : 'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.',
                       child: KarticaKnjige(
                         knjiga: knjiga,
                         izabranaVerzija: _izabranaVerzija,
                         zakacenoPoglavlje: _zakacenoPoglavlje,
                         sacuvajStanjeZakacenogPoglavlja:
                             _sacuvajStanjeZakacenogPoglavlja,
+                        sortirajKnjige: _sortirajKnjige,
+                        latinica: _latinica,
                       ),
                     );
                   } else {
@@ -273,6 +293,8 @@ class _BiblijaState extends State<Biblija> {
                       zakacenoPoglavlje: _zakacenoPoglavlje,
                       sacuvajStanjeZakacenogPoglavlja:
                           _sacuvajStanjeZakacenogPoglavlja,
+                      sortirajKnjige: _sortirajKnjige,
+                      latinica: _latinica,
                     );
                   }
                 }),
@@ -281,196 +303,178 @@ class _BiblijaState extends State<Biblija> {
           // Pretraga knjiga
           Padding(
             padding: EdgeInsets.all(10),
-            child: Showcase(
-              key: _pretraga2,
-              targetBorderRadius: BorderRadius.circular(100),
-              tooltipBorderRadius: BorderRadius.circular(10),
-              tooltipPadding: EdgeInsets.all(15),
-              // onTargetClick: () {
-              //   _skrolujDo(_biblija3);
-              // },
-              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                color: colors.primary,
-                fontWeight: FontWeight.bold,
-              )),
-              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                fontStyle: FontStyle.italic,
-              )),
-              title: 'Претрага књига',
-              description:
-                  'Можете да претражујете књиге Библије по наслову, категорији или поткатегорији.',
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.magnifyingGlass,
-                          color: colors.primary,
-                          size: textTheme.titleLarge?.fontSize,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Flexible(
-                          child: Container(
-                            child: TextField(
-                              maxLines: 1,
-                              style: textTheme.titleMedium!.merge(TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: colors.primary,
-                              )),
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 0),
-                                border: InputBorder.none,
-                                hintText: "Претражите књиге",
-                              ),
-                              controller: _kontrolerPretrage,
-                              onChanged: (String unos) {
-                                _filtrirajKnjige(unos);
-                              },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.magnifyingGlass,
+                        color: colors.primary,
+                        size: textTheme.titleLarge?.fontSize,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: Container(
+                          child: TextField(
+                            maxLines: 1,
+                            style: textTheme.titleMedium!.merge(TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: colors.primary,
+                            )),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 0),
+                              border: InputBorder.none,
+                              hintText: _latinica
+                                  ? cirilicaLatinica("Претражите књиге")
+                                  : "Претражите књиге",
                             ),
+                            controller: _kontrolerPretrage,
+                            onChanged: (String unos) {
+                              _filtrirajKnjige(unos);
+                            },
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        // Showcase(
-                        //   key: _filteri3,
-                        //   targetBorderRadius: BorderRadius.circular(100),
-                        //   tooltipBorderRadius: BorderRadius.circular(10),
-                        //   tooltipPadding: EdgeInsets.all(15),
-                        //   // onTargetClick: () {
-                        //   //   _skrolujDo(_biblija3);
-                        //   // },
-                        //   titleTextStyle:
-                        //       textTheme.titleMedium?.merge(TextStyle(
-                        //     color: colors.primary,
-                        //     fontWeight: FontWeight.bold,
-                        //   )),
-                        //   descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                        //     fontStyle: FontStyle.italic,
-                        //   )),
-                        //   title: 'Филтрирање књига',
-                        //   description:
-                        //       'Можете да филтрирате и претражите књиге по категорији и поткатегорији.',
-                        //   child: IconButton(
-                        //     onPressed: () async {
-                        //       await showModalBottomSheet(
-                        //         context: context,
-                        //         builder: (context) => Padding(
-                        //           padding: EdgeInsets.symmetric(horizontal: 10),
-                        //           child: Column(
-                        //             mainAxisSize: MainAxisSize.min,
-                        //             crossAxisAlignment:
-                        //                 CrossAxisAlignment.start,
-                        //             children: [
-                        //               Text(
-                        //                 'Категорија',
-                        //                 style: textTheme.titleLarge?.merge(
-                        //                   TextStyle(
-                        //                     color: colors.primary,
-                        //                     fontWeight: FontWeight.bold,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               SizedBox(
-                        //                 height: 10,
-                        //               ),
-                        //               Wrap(
-                        //                 children: [
-                        //                   for (int i = 0,
-                        //                           len = _kategorije.length;
-                        //                       i < len;
-                        //                       i++)
-                        //                     Row(
-                        //                       mainAxisSize: MainAxisSize.min,
-                        //                       children: [
-                        //                         FilterChip(
-                        //                           label: Text(_kategorije[i]
-                        //                               ['naslov']),
-                        //                           selected: _kategorije[i]
-                        //                               ['stanje'],
-                        //                           onSelected: (stanje) {
-                        //                             setState(() {
-                        //                               _kategorije[i]['stanje'] =
-                        //                                   stanje;
-                        //                             });
-                        //                           },
-                        //                         ),
-                        //                         if (i < len - 1)
-                        //                           SizedBox(
-                        //                             width: 10,
-                        //                           ),
-                        //                       ],
-                        //                     )
-                        //                 ],
-                        //               ),
-                        //               SizedBox(height: 10,),
-                        //               Text(
-                        //                 'Поткатегорија',
-                        //                 style: textTheme.titleLarge?.merge(
-                        //                   TextStyle(
-                        //                     color: colors.primary,
-                        //                     fontWeight: FontWeight.bold,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               SizedBox(
-                        //                 height: 10,
-                        //               ),
-                        //               Wrap(
-                        //                 children: [
-                        //                   for (int i = 0,
-                        //                       len = _potkategorije.length;
-                        //                   i < len;
-                        //                   i++)
-                        //                     Row(
-                        //                       mainAxisSize: MainAxisSize.min,
-                        //                       children: [
-                        //                         FilterChip(
-                        //                           label: Text(_potkategorije[i]
-                        //                           ['naslov']),
-                        //                           selected: _potkategorije[i]
-                        //                           ['stanje'],
-                        //                           onSelected: (stanje) {
-                        //                             setState(() {
-                        //                               _kategorije[i]['stanje'] =
-                        //                                   stanje;
-                        //                             });
-                        //                           },
-                        //                         ),
-                        //                         if (i < len - 1)
-                        //                           SizedBox(
-                        //                             width: 10,
-                        //                           ),
-                        //                       ],
-                        //                     )
-                        //                 ],
-                        //               ),
-                        //             ],
-                        //           ),
-                        //         ),
-                        //         showDragHandle: true,
-                        //         isScrollControlled: true,
-                        //         useSafeArea: true,
-                        //       );
-                        //     },
-                        //     icon: FaIcon(
-                        //       FontAwesomeIcons.filter,
-                        //       size: textTheme.titleLarge?.fontSize,
-                        //       color: colors.primary,
-                        //     ),
-                        //     color: colors.surfaceVariant,
-                        //   ),
-                        // ),
-                      ]),
-                ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      // Showcase(
+                      //   key: _filteri3,
+                      //   targetBorderRadius: BorderRadius.circular(100),
+                      //   tooltipBorderRadius: BorderRadius.circular(10),
+                      //   tooltipPadding: EdgeInsets.all(15),
+                      //   // onTargetClick: () {
+                      //   //   _skrolujDo(_biblija3);
+                      //   // },
+                      //   titleTextStyle:
+                      //       textTheme.titleMedium?.merge(TextStyle(
+                      //     color: colors.primary,
+                      //     fontWeight: FontWeight.bold,
+                      //   )),
+                      //   descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                      //     fontStyle: FontStyle.italic,
+                      //   )),
+                      //   title: 'Филтрирање књига',
+                      //   description:
+                      //       'Можете да филтрирате и претражите књиге по категорији и поткатегорији.',
+                      //   child: IconButton(
+                      //     onPressed: () async {
+                      //       await showModalBottomSheet(
+                      //         context: context,
+                      //         builder: (context) => Padding(
+                      //           padding: EdgeInsets.symmetric(horizontal: 10),
+                      //           child: Column(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             crossAxisAlignment:
+                      //                 CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 'Категорија',
+                      //                 style: textTheme.titleLarge?.merge(
+                      //                   TextStyle(
+                      //                     color: colors.primary,
+                      //                     fontWeight: FontWeight.bold,
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //               SizedBox(
+                      //                 height: 10,
+                      //               ),
+                      //               Wrap(
+                      //                 children: [
+                      //                   for (int i = 0,
+                      //                           len = _kategorije.length;
+                      //                       i < len;
+                      //                       i++)
+                      //                     Row(
+                      //                       mainAxisSize: MainAxisSize.min,
+                      //                       children: [
+                      //                         FilterChip(
+                      //                           label: Text(_kategorije[i]
+                      //                               ['naslov']),
+                      //                           selected: _kategorije[i]
+                      //                               ['stanje'],
+                      //                           onSelected: (stanje) {
+                      //                             setState(() {
+                      //                               _kategorije[i]['stanje'] =
+                      //                                   stanje;
+                      //                             });
+                      //                           },
+                      //                         ),
+                      //                         if (i < len - 1)
+                      //                           SizedBox(
+                      //                             width: 10,
+                      //                           ),
+                      //                       ],
+                      //                     )
+                      //                 ],
+                      //               ),
+                      //               SizedBox(height: 10,),
+                      //               Text(
+                      //                 'Поткатегорија',
+                      //                 style: textTheme.titleLarge?.merge(
+                      //                   TextStyle(
+                      //                     color: colors.primary,
+                      //                     fontWeight: FontWeight.bold,
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //               SizedBox(
+                      //                 height: 10,
+                      //               ),
+                      //               Wrap(
+                      //                 children: [
+                      //                   for (int i = 0,
+                      //                       len = _potkategorije.length;
+                      //                   i < len;
+                      //                   i++)
+                      //                     Row(
+                      //                       mainAxisSize: MainAxisSize.min,
+                      //                       children: [
+                      //                         FilterChip(
+                      //                           label: Text(_potkategorije[i]
+                      //                           ['naslov']),
+                      //                           selected: _potkategorije[i]
+                      //                           ['stanje'],
+                      //                           onSelected: (stanje) {
+                      //                             setState(() {
+                      //                               _kategorije[i]['stanje'] =
+                      //                                   stanje;
+                      //                             });
+                      //                           },
+                      //                         ),
+                      //                         if (i < len - 1)
+                      //                           SizedBox(
+                      //                             width: 10,
+                      //                           ),
+                      //                       ],
+                      //                     )
+                      //                 ],
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         showDragHandle: true,
+                      //         isScrollControlled: true,
+                      //         useSafeArea: true,
+                      //       );
+                      //     },
+                      //     icon: FaIcon(
+                      //       FontAwesomeIcons.filter,
+                      //       size: textTheme.titleLarge?.fontSize,
+                      //       color: colors.primary,
+                      //     ),
+                      //     color: colors.surfaceVariant,
+                      //   ),
+                      // ),
+                    ]),
               ),
             ),
           ),
@@ -510,12 +514,16 @@ class KarticaKnjige extends StatelessWidget {
     required Verzija izabranaVerzija,
     required this.zakacenoPoglavlje,
     required this.sacuvajStanjeZakacenogPoglavlja,
+    required this.sortirajKnjige,
+    required this.latinica,
   }) : _izabranaVerzija = izabranaVerzija;
 
   final Knjiga knjiga;
   final Verzija _izabranaVerzija;
   final Map<dynamic, dynamic> zakacenoPoglavlje;
   final Function(Map<dynamic, dynamic>) sacuvajStanjeZakacenogPoglavlja;
+  final Function() sortirajKnjige;
+  final bool latinica;
 
   @override
   Widget build(BuildContext context) {
@@ -532,7 +540,7 @@ class KarticaKnjige extends StatelessWidget {
         ),
 
         // Naslov
-        title: Text(knjiga.naslov),
+        title: Text(latinica ? cirilicaLatinica(knjiga.naslov) : knjiga.naslov),
         titleTextStyle: textTheme.titleMedium?.merge(
           TextStyle(
             color: colors.primary,
@@ -541,7 +549,9 @@ class KarticaKnjige extends StatelessWidget {
         ),
 
         // Podnaslov - kategorija i potkategorija
-        subtitle: Text("${knjiga.kategorija} / ${knjiga.potkategorija}"),
+        subtitle: Text(latinica
+            ? cirilicaLatinica("${knjiga.kategorija} / ${knjiga.potkategorija}")
+            : "${knjiga.kategorija} / ${knjiga.potkategorija}"),
         subtitleTextStyle: textTheme.bodyMedium?.merge(
           TextStyle(
             fontStyle: FontStyle.italic,
@@ -550,10 +560,18 @@ class KarticaKnjige extends StatelessWidget {
 
         // Ikonica (ako je zakacena)
         trailing: zakacena
-            ? FaIcon(
-                FontAwesomeIcons.solidBookmark,
-                color: colors.primary,
-                size: textTheme.titleLarge?.fontSize,
+            ? IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.solidBookmark,
+                  color: colors.primary,
+                ),
+                iconSize: textTheme.titleLarge?.fontSize,
+                onPressed: () {
+                  sacuvajStanjeZakacenogPoglavlja({});
+                  sortirajKnjige();
+                  sacuvajStanjeZakacenogPoglavlja(
+                      {'id_knjige': 0, 'indeks_poglavlja': 0});
+                },
               )
             : null,
 
@@ -571,6 +589,7 @@ class KarticaKnjige extends StatelessWidget {
               indeksPoglavlja:
                   zakacena ? zakacenoPoglavlje['indeks_poglavlja'] : 0,
               sacuvajStanjeZakacenogPoglavlja: sacuvajStanjeZakacenogPoglavlja,
+              latinica: latinica,
             ),
             showDragHandle: true,
             isScrollControlled: true,
@@ -588,6 +607,7 @@ class ModalZaCitanje extends StatefulWidget {
   final int indeksPoglavlja;
   final Function(Map<dynamic, dynamic>) sacuvajStanjeZakacenogPoglavlja;
   final bool oglasiOmoguceni;
+  final bool latinica;
 
   const ModalZaCitanje({
     super.key,
@@ -596,6 +616,7 @@ class ModalZaCitanje extends StatefulWidget {
     this.indeksPoglavlja = 0,
     required this.sacuvajStanjeZakacenogPoglavlja,
     this.oglasiOmoguceni = true,
+    required this.latinica,
   });
 
   @override
@@ -609,6 +630,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
   int _id_zakacene_knjige = -1;
   late ScrollController _skrolKontroler;
   late bool _oglasiOmoguceni = true;
+  late bool _latinica = false;
 
   BannerAd? _bannerAd;
 
@@ -632,6 +654,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
       _indeks_poglavlja = widget.indeksPoglavlja;
       _skrolKontroler = ScrollController();
       _oglasiOmoguceni = widget.oglasiOmoguceni;
+      _latinica = widget.latinica;
     });
 
     if (_oglasiOmoguceni) {
@@ -680,7 +703,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
 
   Future<void> _sacuvajStanjeZakacenog() async {
     Box box = await Hive.box("parametri");
-    box.put('indeks_zakacenog_poglavlja',
+    box.put('zakaceno_poglavlje',
         {"indeks_poglavlja": _indeks_poglavlja, "id_knjige": _knjiga.id});
 
     widget.sacuvajStanjeZakacenogPoglavlja({
@@ -692,7 +715,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
   Future<void> _ucitajStanjeZakacenog() async {
     Box box = await Hive.box("parametri");
     Map<dynamic, dynamic>? zakacenoPoglavlje =
-        box.get('indeks_zakacenog_poglavlja', defaultValue: null);
+        box.get('zakaceno_poglavlje', defaultValue: null);
 
     if (zakacenoPoglavlje != null) {
       // Sacuvaj u stanje
@@ -710,6 +733,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
     Map<String, dynamic> poglavlje = widget.sadrzaj[_indeks_poglavlja];
 
     return ShowCaseWidget(
+      disableMovingAnimation: true,
       builder: Builder(builder: (context) {
         if (_prikaziUputstva["biblija_nov_korisnik_citanje"] ?? false) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
@@ -748,10 +772,17 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                         descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                           fontStyle: FontStyle.italic,
                         )),
-                        title: 'Наслов књиге',
-                        description: 'Овде се налази наслов отворене књиге.',
+                        title: _latinica
+                            ? cirilicaLatinica('Наслов књиге')
+                            : 'Наслов књиге',
+                        description: _latinica
+                            ? cirilicaLatinica(
+                                'Овде се налази наслов отворене књиге.')
+                            : 'Овде се налази наслов отворене књиге.',
                         child: Text(
-                          _knjiga.naslov,
+                          _latinica
+                              ? cirilicaLatinica(_knjiga.naslov)
+                              : _knjiga.naslov,
                           style: textTheme.titleLarge?.merge(
                             TextStyle(
                               fontWeight: FontWeight.bold,
@@ -777,11 +808,18 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                         descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                           fontStyle: FontStyle.italic,
                         )),
-                        title: 'Наслов поглавља',
-                        description:
-                            'Књиге су подељене на поглавља, чије име се налази овде.',
+                        title: _latinica
+                            ? cirilicaLatinica('Наслов поглавља')
+                            : 'Наслов поглавља',
+                        description: _latinica
+                            ? cirilicaLatinica(
+                                'Књиге су подељене на поглавља, чије име се налази овде.')
+                            : 'Књиге су подељене на поглавља, чије име се налази овде.',
                         child: Text(
-                          "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
+                          _latinica
+                              ? cirilicaLatinica(
+                                  "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}")
+                              : "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
                           style: textTheme.titleMedium?.merge(
                             TextStyle(
                                 color: colors.primary,
@@ -812,16 +850,25 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                                     textTheme.bodyMedium?.merge(TextStyle(
                                   fontStyle: FontStyle.italic,
                                 )),
-                                title: 'Стих',
-                                description:
-                                    'Поглавља су подељена на нумерисане стихове, а ово је један од њих.',
+                                title: _latinica
+                                    ? cirilicaLatinica('Стих')
+                                    : 'Стих',
+                                description: _latinica
+                                    ? cirilicaLatinica(
+                                        'Поглавља су подељена на нумерисане стихове, а ово је један од њих.')
+                                    : 'Поглавља су подељена на нумерисане стихове, а ово је један од њих.',
                                 child: Stih(
-                                  tekst: poglavlje["stihovi"][i],
+                                  tekst: _latinica
+                                      ? cirilicaLatinica(
+                                          poglavlje["stihovi"][i])
+                                      : poglavlje["stihovi"][i],
                                   indeks: i + 1,
                                 ),
                               )
                             : Stih(
-                                tekst: poglavlje["stihovi"][i],
+                                tekst: _latinica
+                                    ? cirilicaLatinica(poglavlje["stihovi"][i])
+                                    : poglavlje["stihovi"][i],
                                 indeks: i + 1,
                               ),
                       SizedBox(height: 100),
@@ -838,7 +885,9 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: _bannerAd != null ? EdgeInsets.symmetric(horizontal: 20) : EdgeInsets.all(20),
+                    padding: _bannerAd != null
+                        ? EdgeInsets.symmetric(horizontal: 20)
+                        : EdgeInsets.all(20),
                     child: Showcase(
                       key: _kontrole4,
                       targetBorderRadius: BorderRadius.circular(13),
@@ -854,9 +903,12 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                       descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                         fontStyle: FontStyle.italic,
                       )),
-                      title: 'Контроле',
-                      description:
-                          'Овде можете да прелиставате књигу по поглављима и видите на којем сте тренутно.',
+                      title:
+                          _latinica ? cirilicaLatinica('Контроле') : 'Контроле',
+                      description: _latinica
+                          ? cirilicaLatinica(
+                              'Овде можете да прелиставате књигу по поглављима и видите на којем сте тренутно.')
+                          : 'Овде можете да прелиставате књигу по поглављима и видите на којем сте тренутно.',
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -885,7 +937,10 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                               child: Container(
                                 padding: EdgeInsets.all(11),
                                 child: Text(
-                                  "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
+                                  _latinica
+                                      ? cirilicaLatinica(
+                                          "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}")
+                                      : "${_indeks_poglavlja + 1}. ${poglavlje["naslov"]}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
@@ -914,9 +969,13 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                                 textTheme.bodyMedium?.merge(TextStyle(
                               fontStyle: FontStyle.italic,
                             )),
-                            title: 'Ставите обележивач',
-                            description:
-                                'Када завршите са читањем, оставите обележивач како бисте могли да наставите.',
+                            title: _latinica
+                                ? cirilicaLatinica('Ставите обележивач')
+                                : 'Ставите обележивач',
+                            description: _latinica
+                                ? cirilicaLatinica(
+                                    'Када завршите са читањем, оставите обележивач како бисте могли да наставите.')
+                                : 'Када завршите са читањем, оставите обележивач како бисте могли да наставите.',
                             child: FloatingActionButton.small(
                               onPressed: () {
                                 _sacuvajStanjeZakacenog();
@@ -959,10 +1018,10 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
                   ),
                   if (_bannerAd != null && _oglasiOmoguceni)
                     Container(
-                    width: _bannerAd!.size.width.toDouble(),
-                    height: _bannerAd!.size.height.toDouble(),
-                    child: AdWidget(ad: _bannerAd!),
-                  ),
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
                 ],
               ),
             ),

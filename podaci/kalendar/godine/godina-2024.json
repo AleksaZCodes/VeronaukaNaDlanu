@@ -1,0 +1,4170 @@
+[
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Бонифатије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. Игњатије Богоносац",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Данило, Други Арх. српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Јулијана",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Петар Кијевски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Анастасија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих 10 мученика Критских",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Наум Охридски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Туциндан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света преподобномученица Евгенија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Бадњи дан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "РОЖДЕСТВО ХРИСТОВО - БОЖИЋ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "САБОР ПРЕСВЕТЕ БОГОРОДИЦЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ПРВОМУЧЕНИК И АРХИЂАКОН СТЕФАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих 20. 000 мученика Никомидијских",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих 14. 000 младенаца Витлејемских",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Анисија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобна Теодора",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Меланија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Доситеј Загребачки Исповед.",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ОБРЕЗАЊЕ ГОСПОДЊЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "СВ. ВАСИЛИЈЕ ВЕЛИКИ (НОВА ГОДИНА)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преп. Серафим Саровски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Силвестар",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Малахија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Гордије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Сабор 70 светих апостола",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јевстатије српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Теопемт и Теона",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Крстовдан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "БОГОЈАВЉЕЊЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "САБОР СВЕТОГ ЈОВАНА КРСТИТЕЉА - ЈОВАЊДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. муч. Јулијан и Василиса",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Пр. Георгије Хозевит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Григорије Охридски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Полиевкт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Филип Московски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Григорије Ниски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Дометијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Теодосије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Михаило",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Татијана",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Икона Млекопитатељица",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Ермил и Стратоник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ САВА - ПРВИ АРХИЕПИСКОП СРПСКИ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Павле",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Гаврило Лесновски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Часне вериге Светог aпостола Петра",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Ромило Раванички",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Антоније Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Атанасије Велики",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Максим Архиепископ српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Макарије Египатски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Марко Ефески",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јевтимије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Максим Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Неофит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Тимотеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни мученик Анастасије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Климент Анкирски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Ксенија Римљанка",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Вавила",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Григорије Богослов",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Публије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Ксенофонт и Марија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог Јована Златоуста",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јефрем Сирин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Исак Сирин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог Игњатија Богоносца",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТА ТРИ ЈЕРАРХА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети бесребреници Кир и Јован",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Трифун",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СРЕТЕЊЕ ГОСПОДЊЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Симеон и Ана",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јаков, Архиепископ српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Исидор Пелусиот",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Николај",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Агатија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Полиевкт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Фотије Цариградски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Вукол Смирнски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Партеније Лампсакијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Теодор Стратилат",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Сава, Други Архиепископ српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Никифор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Харалампије",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Власије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети великомученик Ђорђе Кратовац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Мелетије Антиохијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Симеон Мироточиви",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Авксентије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Кирил Словенски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Онисим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јевсевије Пустињак",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Памфил, Порфирије и других 12 мученика",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Памфил, Порфирије и других 12 мученика",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Теодор Тирон",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Лав Римскисвети Флавијан Цариградски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли Архип, Филимон и Апфија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Лав Катански",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Тимотејсвети Евстатије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици у Евгенији",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Поликарп Смирнски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Прво и друго обретење главе светог Јована Крститеља(Велике - зимске задушнице)",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Тарасије Цариградски (Месне покладе)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Порфирије епископ Гаски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Прокопије Декаполитпреподобни Талалеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Василије исповедникпреподобни Јован Касијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света преподобномученица Евдокија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свмуч. Теодот Киринејски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Евтропије, Клеоник и Василиск",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Герасим jордански(Беле покладе)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Конон",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Марко (Почетак поста)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света 42 мученика Аморејска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих седам свештеномученика херсонских",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Теофилакт Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих 40 мученика Севастијских - Младенци",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. 42 мученика Момишићка",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Кодрат Коринтски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Теодор Комоговински",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Теодорова субота",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Софроније Јерусалимски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Симеон Нови Богослов",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Григорије Двојеслов",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог Никифора Цариградског",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Бенедикт Нурсијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Агапије и седморица с њим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Аристовул",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Савин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Алексије - Човек Божји",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Кирил Јерусалимски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Хризант, Дарија и други",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Симеон Дајбабски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Оци поубијани у манастиру Светог Саве Освећеног",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јаков Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Василије Анкирски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобномученик Никон и други",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Захарије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "БЛАГОВЕСТИ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Сабор светог архангела Гаврила",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Матрона Солунска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Иларион Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Марко Ареутски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јован Лествичник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свештеномученик Ипатије Гангријски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Марија Египћанка",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Тит Чудотворац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Никита Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јосиф Химнограф (Прво бденије)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Агатопод и Теодул",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Евтихије Цариградски (Друго бденије)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Георгије Митиленски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Иродион, Агав, Руф и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Евпсихије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Терентије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Антипа",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Василије Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Артемон Лаодикијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Мартин Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Лазарева субота - Врбица",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "УЛАЗАК ГОСПОДА ИСУСА ХРИСТА У ЈЕРУСАЛИМ - ЦВЕТИ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свете мученице Агапија, Хионија и Ирина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Симеон Персијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јован",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Велики четвртак (Велико бденије)",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВЕЛИКИ ПЕТАК - РАСПЕЋЕ ХРИСТОВО",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВЕЛИКА СУБОТА",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВАСКРСЕЊЕ ГОСПОДА ИСУСА ХРИСТА - ВАСКРС",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВАСКРСНИ ПОНЕДЕЉАК",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВАСКРСНИ УТОРАК",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол и јеванђелист Марко - Марковдан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Василије Амасијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Спаљивање моштију Светог Саве на Врачару",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли Јасон и Сосипатр",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ВАСИЛИЈЕ ОСТРОШКИ ЧУДОТВОРАЦ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. апостол Јаков Заведејев",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Јеремија",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Атанасије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Михаил",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Тимотеј и Мавра",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Пелагија Тарсијска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Ирина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Праведни Јов",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Пренос моштију Светог Саве",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Појава Часног Крста у Јерусалиму",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол и јеванђелист Јован Богослов",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог оца Николаја",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Симон Зилот",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобна Исидора",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ЋИРИЛО И МЕТОДИЈЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "Свети Никодим српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Епифаније",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Герман Цариградски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Гликерија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Исидор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Максим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Пахомије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Ахилије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преп. Теодор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свештеномученик Теодор Вршачки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Мученик Вукашин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Викентије и мученици сурдулички",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Андроник и Јунија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Теодор Анкирски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Патрикије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Талалеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Стефан Пиперски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ЦАР КОНСТАНТИН И ЦАРИЦА ЈЕЛЕНА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "Преподобна Јелена Дечанска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јован Владимир, кнез српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Михајло Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Симеон Дивногорац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Треће обретење главе светог Јована Крститеља",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Карп и Алфеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Терапонт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Никита Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобномученица Теодосија Тирска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Исакије Далматски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВАЗНЕСЕЊЕ ГОСПОДЊЕ - СПАСОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јустин Философ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јустин ЋелијскиПећка икона Пресвете Богородице",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Никифор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свештеномученик Еразмо Охридски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Лукилијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. муч. Димитрије царевић",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. мир. Марта и Марија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Јоаникије Црногорски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. свештмуч. Ђорђе (Богић)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Доротеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Петар Коришки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Висарион и Иларион Нови",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Теодор Анкирски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Теодор Стратилат",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Кирило Александријски (Летње - духовске задушнице)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СИЛАЗАК СВЕТОГ ДУХА НА АПОСТОЛЕ - ПЕДЕСЕТНИЦА - ТРОЈИЦЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ДУХОВСКИ ПОНЕДЕЉАК",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ДУХОВСКИ УТОРАК",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Акилина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Трифилије Левкусијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Јелисеј",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Методије Цариградски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. Амос",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "СВ. МУЧЕНИК КНЕЗ ЛАЗАР И СВ. СРПСКИ МУЧЕНИЦИ - ВИДОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Тихон Аматунски Чудотворац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Мануил, Савел и Исмаил(Петровске покладе)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Леонтије, Ипатије и Теодул(Почетак поста)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Јуда",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Пајсије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јован Шангајски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Методије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Наум Охридски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јулијан Тарсијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобна Анастасија Српска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Јевсевије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Агрипина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Владимирска икона Мајке Божје",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "РОЂЕЊЕ СВЕТОГ ЈОВАНА ПРЕТЕЧЕ - ИВАЊДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света преподобномученица Февронија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Давид Солунски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Сампсон Странопримац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију св. бесребреника Кира и Јована",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. муч. Дабробосан. и Милешев.",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ АПОСТОЛИ ПЕТАР И ПАВЛЕ - ПЕТРОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Сабор светих дванаест апостола - Павловдан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици и бесребреници Козма и Дамјан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Полагање ризе Пресвете Богородице",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јакинт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Анатолије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Андреј Критски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. свештеномученик Сава Горњокарловачки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Атанасије Атонски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Сергије Радоњешки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Сисоје Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Тома Малеин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Недеља",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Прокопије",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свештеномученик Панкратије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Теодор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. муч. Гламочки и Куленвакуфски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих 45 мученика из Никопоља",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преп. Антоније Печерски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Ефимија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Блажена Олга",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. муч. Прокло и Иларије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Икона Пресвете Богородице Тројеручице",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Сабор светог архангела Гаврила",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Акила",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Никодим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Кирик и Јулита",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Владимир, велики кнез руски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свештеномученик Атиноген",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Јулија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Марина - Огњена Марија",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Емилијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Јакинт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Преп. Макрина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Стефан, Деспот српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобна Евгенија (Лазаревић)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ПРОРОК ИЛИЈА - ИЛИНДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "Св. Илија Грузијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Језекиљ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света Марија Магдалена - Блага Марија",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Трофим, Теофил и други",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Христина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Поликарп Печерски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Успеније Свете Ане",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобномученица Параскева - Петка",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Сава Трећи, Арх. српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Пантелејмон",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Климент Охридски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли и ђакони Прохор, Никанор, Тимон и Пармен",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Калиник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Серафима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна мати Ангелина српска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Евдоким",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Јулита (Госпојинске покладе)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Изношење Часног Крста",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. мученици Макавеји (Почетак поста)",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог првомученика и архиђакона Стефана",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Исакије, Далмат и Фавст",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Светих седам мученика у Ефесу",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Евсигније",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ПРЕОБРАЖЕЊЕ ГОСПОДЊЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобномученик Дометије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Ор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Емилијан Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Зосим Тумански",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Матија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Антоније",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик и архиђакон Лаврентије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик и архиђакон Евпло",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Фотије, Аникита и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Иполит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Михеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "УСПЕНИЈЕ ПРЕСВЕТЕ БОГОРОДИЦЕ - ВЕЛИКА ГОСПОЈИНА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Јевстатије, Други Арх. српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преп. Роман",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преп. Рафаило банатски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Патрокло",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Мирон",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Флор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јован Рилски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Андреј Стратилат",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Самуило",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети свештеномученик Филип Ираклијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. апостол Тадеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. муч. Васа са децом",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. муч. Рафаило Шишатовачки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Агатоник",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети свештеномученик Горазд Чешки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Иринеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Луп",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Евтихије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Сира",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос мошт. св. ап. Вартоломеја",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети апостол Тит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Адријан и Наталија",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Пимен Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Мојсеј Мурин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Сава Псковски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "УСЕКОВАЊЕ ГЛАВЕ СВЕТОГ ЈОВАНА КРСТИТЕЉА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију светог Александра Невског",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Сабор српских светитеља",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Полагање појаса Пресвете Богородице",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. мученици јасеновачки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Симеон Столпник - црквена Нова година",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Мамант",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јован Посник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештмуч. Антим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јоаникије, Први Патријарх српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. свмуч. Вавила",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Пророк Мојсеј Боговидац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Петар Дабробосански",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Захарије и праведна Јелисавета",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Чудо светог архангела Михаила",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Евдоксије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Созонт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "РОЂЕЊЕ ПРЕСВЕТЕ БОГОРОДИЦЕ - МАЛА ГОСПОЈИНА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети праведни Јоаким и Ана",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свете мученице Минодора, Митродора и Нимфодора",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Теодора",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Сергије и Герман",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. свештеномученик Автоном",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Корнилије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВОЗДВИЖЕЊЕ ЧАСНОГ КРСТА - КРСТОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Никита",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јосиф Темишварски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Доротеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Кипријан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. великомуч. Јефимија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свете мученице Вера, Нада и Љубав и мајка им Софија",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Евменије Гортински",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света мученица Ариадна",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Трофим, Саватије и Доримедонт",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Јевстатије",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Кодрат",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Фока",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети пророк Јона (Михољске задушнице)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Зачеће светог Јована Претече и Крститеља",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света првомученица Текла",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преп. Симон, св. Краљ Владислав и преп. Давид",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Ефросинија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Сергије Радоњешки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол и јеванђелист Јован Богослов",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Калистрат",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Харитон Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Киријак Отшелник - Михољдан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Григорије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Михаил Кијевски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Покров Пресвете Богородице",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Кипријан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Андреј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Дионисије Ареопагит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Стефан и Јелена (Штиљановић)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света мученица Харитина",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свештеномученик Дионисије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Тома - Томиндан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Сергије и Вакхо - Срђевдан",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобна Пелагија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобна Таиса",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Јаков",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Стефан, Деспот српски (Слепи)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Евлампије и Евлампија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Филип, ђакон",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Теофан Начертани",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Тарах, Пров и Андроник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Карп",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света новомученица Злата Меглинска",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ПРЕПОДОБНА МАТИ ПАРАСКЕВА - СВЕТА ПЕТКА",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Лукијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јевтимије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Лонгин Сотник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Осија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобномученик Андреј Критски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол и јеванђелист Лука",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                },
+                {
+                    "naslov": "СВЕТИ ПЕТАР ЦЕТИЊСКИ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. пророк Јоил",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподоб. Прохор Пчињски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Јован Рилски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети великомученик Артемије (Митровске задушнице)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Иларион",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Иларион",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Исповедник Висарион",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети равноапостолни Аверкије јерапољски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Јаков, први епископ Јерусалимски",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Арета",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Маркијан и Мартирије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ ВЕЛИКОМУЧЕНИК ДИМИТРИЈЕ - МИТРОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Нестор",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Терентије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Арсеније Сремац, Архиепископ српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Аврамије Затворник",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобномученица Анастасија Римљанка",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. краљ Милутин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преп. Теоктист и Јелена",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Варнава Хвост. Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли Стахије, Амплије, Урван и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Козма и Дамјан - Врачеви",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Акиндин, Пигасије и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Пренос моштију Св. Георгија - ЂУРЂИЦ",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Јоаникије Велики",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свештеномученик Никандар",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобномученик Галактион и Епистима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Павле Исповедник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Варлам Хутински",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јарон и св. 33 мученика у Мелитини",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Лазар",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "САБОР СВ. АРХАНГЕЛА МИХАИЛА - АРАНЂЕЛОВДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Онисифор и Порфирије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Нектарије Егински",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли Олимп, Ераст, Родион и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Мина",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети краљ Стефан Дечански - Мратиндан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Јован Милостиви",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Нил Синајски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Јован Златоусти",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Филип (Божићне покладе)",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Гурије, Самон и Авив (Почетак поста)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол и јеванђелист Матеј",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Григорије Чудотворац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Никон Радоњешки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Максим Патријарх Цариградски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ],
+    [
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Платон",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученици Роман и Варул Отрок",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Авдија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Варлаам и Јоасаф",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Григорије Декаполит",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "ВАВЕДЕЊЕ ПРЕСВЕТЕ БОГОРОДИЦЕ",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостоли Филимон, Апфија и Архип",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Мученица Кикилија",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Амфилохије Иконијски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Григорије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Александар Невски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Екатерина",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Климент",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Алимпије Столпник",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Јаков Персијанац",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јаков Ростовски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. Преподобномученик Стефан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети мученик Христо",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Парамон и Филумен",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети апостол Андреј Првозвани",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Наум",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Филарет Милостиви",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Авакум",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Цар Урош",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јоаникије Девички",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Софоније",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јован Ћутљиви",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Света великомученица Варвара",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Јован Дамаскин",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Сава Освећени",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Нектарије Битољски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "СВЕТИ НИКОЛАЈ МИРЛИКИЈСКИ ЧУДОТВОРАЦ - НИКОЉДАН",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": true
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети Амвросије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Григорије Горњачки",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Патапије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети апостоли Состен, Аполос и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Зачеће свете Ане (Детињци)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Мина и други с њим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Јован, Деспот српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Данило Столпник",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Преподобни Спиридон Чудотворац, епископ Тримитунски",
+                    "crnoSlovo": true,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Св. Муч. Евстратије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. свештеномуч. Гаврило",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Св. Никодим српски",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученици Тирс, Левкије, Филимон, Аполоније и други с њима",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети свештеномученик Елевтерије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Преподобни Павле",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Агеј",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Света Теофанија царица (Материце)",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети пророк Данило",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети преподобномуч. ђакон Авакум и игуман Пајсије",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        },
+        {
+            "praznici": [
+                {
+                    "naslov": "Свети мученик Севастијан",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                },
+                {
+                    "naslov": "Свети Модест и други с њим",
+                    "crnoSlovo": false,
+                    "crvenoSlovo": false
+                }
+            ]
+        }
+    ]
+]

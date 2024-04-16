@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
@@ -8,9 +9,12 @@ import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:veronauka/biblija/biblija.dart';
+import 'package:veronauka/clanci/clanci.dart';
+import 'package:veronauka/dobra_dela/dobra_dela.dart';
 
 import 'package:veronauka/kalendar/praznik.dart';
 import 'package:veronauka/kalendar/dan.dart';
+import 'package:veronauka/latinica_cirilica.dart';
 import 'package:veronauka/molitve/molitva.dart';
 import 'package:veronauka/biblija/knjiga.dart';
 import 'package:veronauka/biblija/verzija.dart';
@@ -18,8 +22,9 @@ import 'package:veronauka/molitve/molitve.dart';
 
 class Pocetna extends StatefulWidget {
   final Function(int) idiNaIndeks;
+  final bool latinica;
 
-  const Pocetna({super.key, required this.idiNaIndeks});
+  const Pocetna({super.key, required this.idiNaIndeks, required this.latinica});
 
   @override
   State<Pocetna> createState() => _PocetnaState();
@@ -34,8 +39,10 @@ class _PocetnaState extends State<Pocetna> {
   List<Knjiga> _knjige = [];
   Map<dynamic, dynamic> _zakacenoPoglavlje = {};
   List<dynamic> _sadrzaj = [];
+  int _delo = 0;
 
   bool _ucitano = false;
+  bool _latinica = false;
 
   GlobalKey _kalendar1 = GlobalKey();
   GlobalKey _molitve2 = GlobalKey();
@@ -68,8 +75,11 @@ class _PocetnaState extends State<Pocetna> {
     await _ucitajSadrzajKnjige(_knjige[_zakacenoPoglavlje["id_knjige"]]);
 
     await _ucitajStanjePrikazivanjaUputstva();
+    await _ucitajStanjeIstaknutogDela();
+    // await _ucitajStanjeLatinice();
 
     setState(() {
+      _latinica = widget.latinica;
       _ucitano = true;
     });
 
@@ -101,6 +111,29 @@ class _PocetnaState extends State<Pocetna> {
     box.put("prikazi_uputstva", _prikaziUputstva);
   }
 
+  Future<void> _ucitajStanjeIstaknutogDela() async {
+    Box box = await Hive.box("parametri");
+
+    setState(() {
+      _delo = box.get("istaknuto_delo", defaultValue: 0) % brojDela;
+    });
+
+    box.put("istaknuto_delo", _delo + 1);
+  }
+
+  // Future<void> _ucitajStanjeLatinice() async {
+  //   Box box = await Hive.box("parametri");
+  //
+  //   setState(() {
+  //     _latinica = box.get("latinica", defaultValue: true);
+  //   });
+  // }
+  //
+  // Future<void> _sacuvajStanjeLatinice() async {
+  //   Box box = await Hive.box("parametri");
+  //   box.put("latinica", _latinica);
+  // }
+
   Future<void> _ucitajDanasnjiDan() async {
     DateTime danas = DateTime.now();
 
@@ -110,8 +143,6 @@ class _PocetnaState extends State<Pocetna> {
 
     setState(() {
       _dan = Dan(
-        objasnjenje: dekodiranKalendar[danas.month - 1][danas.day - 1]
-            ["objasnjenje"],
         dan: danas,
         praznici: [
           // Za svaki praznik
@@ -237,7 +268,7 @@ class _PocetnaState extends State<Pocetna> {
   Future<void> _ucitajStanjeZakacenogPoglavljaBiblije() async {
     Box box = await Hive.box("parametri");
     Map<dynamic, dynamic> zakacenoPoglavlje = box.get(
-      'indeks_zakacenog_poglavlja',
+      'zakaceno_poglavlje',
       defaultValue: {'id_knjige': 0, 'indeks_poglavlja': 0},
     );
 
@@ -284,6 +315,11 @@ class _PocetnaState extends State<Pocetna> {
       Map<String, dynamic> poglavlje =
           _sadrzaj[_zakacenoPoglavlje["indeks_poglavlja"]];
 
+      List<Delo> _dela = _latinica
+          ? delaLatinica(context, textTheme, colors)
+          : dela(context, textTheme, colors);
+      Delo _istaknuto_delo = _dela[_delo];
+
       return ListView(
         // controller: _scrollController,
         children: [
@@ -305,14 +341,19 @@ class _PocetnaState extends State<Pocetna> {
               descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                 fontStyle: FontStyle.italic,
               )),
-              title: 'Данашњи празник',
-              description:
-                  'Сазнајте који се празник прославља данас, као и осталих датума.',
+              title: _latinica
+                  ? cirilicaLatinica('Данашњи празник')
+                  : 'Данашњи празник',
+              description: _latinica
+                  ? cirilicaLatinica(
+                      'Сазнајте који се празник прославља данас, као и осталих датума.')
+                  : 'Сазнајте који се празник прославља данас, као и осталих датума.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -325,7 +366,9 @@ class _PocetnaState extends State<Pocetna> {
                             width: 8,
                           ),
                           Text(
-                            'Данас се прославља:',
+                            _latinica
+                                ? cirilicaLatinica('Данас се прославља:')
+                                : 'Данас се прославља:',
                             style: textTheme.bodyMedium?.merge(TextStyle(
                               fontStyle: FontStyle.italic,
                             )),
@@ -333,20 +376,25 @@ class _PocetnaState extends State<Pocetna> {
                         ],
                       ),
                       SizedBox(height: 8),
-                      Text(
-                        _dan!.objasnjenje != ""
-                            ? _dan!.objasnjenje
-                            : _dan!.praznici[0].naslov,
-                        style: textTheme.titleMedium?.merge(TextStyle(
-                          color: praznik.crnoSlovo
-                              ? null
-                              : praznik.crvenoSlovo
-                                  ? HSLColor.fromColor(colors.primary)
-                                      .withHue(0)
-                                      .toColor()
-                                  : colors.primary,
-                          fontWeight: FontWeight.bold,
-                        )),
+                      GestureDetector(
+                        child: Text(
+                          _latinica
+                              ? cirilicaLatinica(_dan!.praznici[0].naslov)
+                              : _dan!.praznici[0].naslov,
+                          style: textTheme.titleMedium?.merge(TextStyle(
+                            color: praznik.crnoSlovo
+                                ? null
+                                : praznik.crvenoSlovo
+                                    ? HSLColor.fromColor(colors.primary)
+                                        .withHue(0)
+                                        .toColor()
+                                    : colors.primary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                        ),
+                        onTap: () {
+                          widget.idiNaIndeks(3);
+                        },
                       ),
                       SizedBox(height: 8),
                       RichText(
@@ -354,13 +402,18 @@ class _PocetnaState extends State<Pocetna> {
                           children: <TextSpan>[
                             if (_dan!.praznici.length - 1 > 0)
                               TextSpan(
-                                text: 'и још ${_dan!.praznici.length - 1}, ',
+                                text: _latinica
+                                    ? cirilicaLatinica(
+                                        'и још ${_dan!.praznici.length - 1}, ')
+                                    : 'и још ${_dan!.praznici.length - 1}, ',
                                 style: textTheme.bodyMedium?.merge(TextStyle(
                                   fontStyle: FontStyle.italic,
                                 )),
                               ),
                             TextSpan(
-                              text: 'детаљније...',
+                              text: _latinica
+                                  ? cirilicaLatinica('детаљније...')
+                                  : 'детаљније...',
                               style: textTheme.bodyMedium?.merge(TextStyle(
                                 color: colors.primary,
                                 fontStyle: FontStyle.italic,
@@ -382,190 +435,290 @@ class _PocetnaState extends State<Pocetna> {
             ),
           ),
 
-          // Molitve
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Showcase(
-              key: _molitve2,
-              targetBorderRadius: BorderRadius.circular(13),
-              tooltipBorderRadius: BorderRadius.circular(10),
-              tooltipPadding: EdgeInsets.all(15),
-              // onTargetClick: () {
-              //   _skrolujDo(_molitve2);
-              // },
-              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                color: colors.primary,
-                fontWeight: FontWeight.bold,
-              )),
-              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                fontStyle: FontStyle.italic,
-              )),
-              title: 'Истакнуте молитве',
-              description:
-                  'Читајте молитве и закачите их овде да Вам буду на дохват руке. Можете да их читате кликом на њих.',
-              child: Card(
+          Row(
+            children: [
+              // Molitve
+              Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.personPraying,
-                            size: textTheme.titleMedium?.fontSize,
-                            color: colors.primary,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            'Истакнуте молитве:',
-                            style: textTheme.bodyMedium?.merge(TextStyle(
-                              fontStyle: FontStyle.italic,
-                            )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      for (int i = 0; i < 3; i++) ...[
-                        GestureDetector(
-                          child: Text(
-                            _molitve[i].naslov,
-                            style: textTheme.titleMedium?.merge(TextStyle(
-                              color: colors.primary,
-                              fontWeight: FontWeight.bold,
-                            )),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) =>
-                                  ModalZaMolitvu(molitva: _molitve[i]),
-                              showDragHandle: true,
-                              isScrollControlled: true,
-                              useSafeArea: true,
-                            );
-                          },
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Showcase(
+                    key: _molitve2,
+                    targetBorderRadius: BorderRadius.circular(13),
+                    tooltipBorderRadius: BorderRadius.circular(10),
+                    tooltipPadding: EdgeInsets.all(15),
+                    // onTargetClick: () {
+                    //   _skrolujDo(_molitve2);
+                    // },
+                    titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                      color: colors.primary,
+                      fontWeight: FontWeight.bold,
+                    )),
+                    descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                      fontStyle: FontStyle.italic,
+                    )),
+                    title: _latinica
+                        ? cirilicaLatinica('Закачене молитве')
+                        : 'Закачене молитве',
+                    description: _latinica
+                        ? cirilicaLatinica(
+                            'Читајте молитве и закачите их овде да Вам буду на дохват руке.')
+                        : 'Читајте молитве и закачите их овде да Вам буду на дохват руке.',
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.personPraying,
+                                  size: textTheme.titleMedium?.fontSize,
+                                  color: colors.primary,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  _latinica
+                                      ? cirilicaLatinica('Молитве:')
+                                      : 'Молитве:',
+                                  style: textTheme.bodyMedium?.merge(TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                  )),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            for (int i = 0; i < 3; i++) ...[
+                              GestureDetector(
+                                child: Text(
+                                  _latinica
+                                      ? cirilicaLatinica(_molitve[i].naslov)
+                                      : _molitve[i].naslov,
+                                  style: textTheme.titleMedium?.merge(TextStyle(
+                                    color: colors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ModalZaMolitvu(
+                                      molitva: _molitve[i],
+                                      latinica: _latinica,
+                                    ),
+                                    showDragHandle: true,
+                                    isScrollControlled: true,
+                                    useSafeArea: true,
+                                  );
+                                },
+                              ),
+                            ],
+                            SizedBox(height: 8),
+                            GestureDetector(
+                              child: Text(
+                                _latinica
+                                    ? cirilicaLatinica('види још...')
+                                    : 'види још...',
+                                style: textTheme.bodyMedium?.merge(TextStyle(
+                                  color: colors.primary,
+                                  fontStyle: FontStyle.italic,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: colors.primary,
+                                )),
+                              ),
+                              onTap: () {
+                                widget.idiNaIndeks(1);
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                      SizedBox(height: 8),
-                      GestureDetector(
-                        child: Text(
-                          'види још...',
-                          style: textTheme.bodyMedium?.merge(TextStyle(
-                            color: colors.primary,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                            decorationColor: colors.primary,
-                          )),
-                        ),
-                        onTap: () {
-                          widget.idiNaIndeks(1);
-                        },
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+
+              // Biblija
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Showcase(
+                    key: _biblija3,
+                    targetBorderRadius: BorderRadius.circular(13),
+                    tooltipBorderRadius: BorderRadius.circular(10),
+                    tooltipPadding: EdgeInsets.all(15),
+                    // onTargetClick: () {
+                    //   _skrolujDo(_biblija3);
+                    // },
+                    titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
+                      color: colors.primary,
+                      fontWeight: FontWeight.bold,
+                    )),
+                    descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                      fontStyle: FontStyle.italic,
+                    )),
+                    title: _latinica
+                        ? cirilicaLatinica('Закачено поглавље Библије')
+                        : 'Закачено поглавље Библије',
+                    description: _latinica
+                        ? cirilicaLatinica(
+                            'Ваше дневно поглавље Библије се појављује овде сваки дан.')
+                        : 'Ваше дневно поглавље Библије се појављује овде сваки дан.',
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.bookBible,
+                                  size: textTheme.titleMedium?.fontSize,
+                                  color: colors.primary,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  _latinica
+                                      ? cirilicaLatinica('Библија:')
+                                      : 'Библија:',
+                                  style: textTheme.bodyMedium?.merge(TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                  )),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            GestureDetector(
+                              child: Text(
+                                _latinica
+                                    ? cirilicaLatinica(poglavlje["naslov"])
+                                    : poglavlje["naslov"],
+                                style: textTheme.titleMedium?.merge(TextStyle(
+                                  color: colors.primary,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              onTap: () async {
+                                await showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ModalZaCitanje(
+                                    knjiga: _knjige[
+                                        _zakacenoPoglavlje['id_knjige']],
+                                    sadrzaj: _sadrzaj,
+                                    indeksPoglavlja:
+                                        _zakacenoPoglavlje['indeks_poglavlja'],
+                                    sacuvajStanjeZakacenogPoglavlja:
+                                        _sacuvajStanjeZakacenogPoglavlja,
+                                    latinica: _latinica,
+                                  ),
+                                  showDragHandle: true,
+                                  isScrollControlled: true,
+                                  useSafeArea: true,
+                                );
+                              },
+                            ),
+                            SizedBox(height: 8),
+                            GestureDetector(
+                              child: Text(
+                                _latinica
+                                    ? cirilicaLatinica('види још...')
+                                    : 'види још...',
+                                style: textTheme.bodyMedium?.merge(TextStyle(
+                                  color: colors.primary,
+                                  fontStyle: FontStyle.italic,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: colors.primary,
+                                )),
+                              ),
+                              onTap: () {
+                                widget.idiNaIndeks(2);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
 
-          // Biblija
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Showcase(
-              key: _biblija3,
-              targetBorderRadius: BorderRadius.circular(13),
-              tooltipBorderRadius: BorderRadius.circular(10),
-              tooltipPadding: EdgeInsets.all(15),
-              // onTargetClick: () {
-              //   _skrolujDo(_biblija3);
-              // },
-              titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                color: colors.primary,
-                fontWeight: FontWeight.bold,
-              )),
-              descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                fontStyle: FontStyle.italic,
-              )),
-              title: 'Истакнуто поглавље Библије',
-              description:
-                  'Ваше дневно поглавље Библије се појављује овде сваки дан. Можете да га прочитате кликом на њега.',
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.bookBible,
-                            size: textTheme.titleMedium?.fontSize,
-                            color: colors.primary,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            'Закачено поглавље Библије:',
-                            style: textTheme.bodyMedium?.merge(TextStyle(
-                              fontStyle: FontStyle.italic,
-                            )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      GestureDetector(
-                        child: Text(
-                          poglavlje["naslov"],
-                          style: textTheme.titleMedium?.merge(TextStyle(
-                            color: colors.primary,
-                            fontWeight: FontWeight.bold,
-                          )),
-                        ),
-                        onTap: () async {
-                          await showModalBottomSheet(
-                            context: context,
-                            builder: (context) => ModalZaCitanje(
-                              knjiga:
-                                  _knjige[_zakacenoPoglavlje['id_knjige']],
-                              sadrzaj: _sadrzaj,
-                              indeksPoglavlja:
-                                  _zakacenoPoglavlje['indeks_poglavlja'],
-                              sacuvajStanjeZakacenogPoglavlja:
-                                  _sacuvajStanjeZakacenogPoglavlja,
-                            ),
-                            showDragHandle: true,
-                            isScrollControlled: true,
-                            useSafeArea: true,
-                          );
-                        },
-                      ),
-                      SizedBox(height: 8),
-                      GestureDetector(
-                        child: Text(
-                          'види још...',
-                          style: textTheme.bodyMedium?.merge(TextStyle(
-                            color: colors.primary,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                            decorationColor: colors.primary,
-                          )),
-                        ),
-                        onTap: () {
-                          widget.idiNaIndeks(2);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // // Clanci
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 10),
+          //   child: Card(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(15),
+          //       child: Stack(
+          //         children: [
+          //           Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Row(
+          //                 children: [
+          //                   FaIcon(
+          //                     FontAwesomeIcons.book,
+          //                     size: textTheme.titleMedium?.fontSize,
+          //                     color: colors.primary,
+          //                   ),
+          //                   SizedBox(
+          //                     width: 8,
+          //                   ),
+          //                   Text(
+          //                     'Истакнути чланак:',
+          //                     style: textTheme.bodyMedium?.merge(TextStyle(
+          //                       fontStyle: FontStyle.italic,
+          //                     )),
+          //                   ),
+          //                 ],
+          //               ),
+          //               SizedBox(height: 8),
+          //               GestureDetector(
+          //                 child: Clanak(
+          //                   colors: colors,
+          //                   textTheme: textTheme,
+          //                   naslov:
+          //                       "Значај крсне славе код Срба",
+          //                   tekst:
+          //                       "Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин. Господе Исусе Христе, сине Божији, помилуј нас грешне. Амин.",
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //
+          //           Positioned(
+          //             bottom: 0,
+          //             right: 0 ,
+          //             child: GestureDetector(
+          //               child: Text(
+          //                 'види још...',
+          //                 style: textTheme.bodyMedium?.merge(TextStyle(
+          //                   color: colors.primary,
+          //                   fontStyle: FontStyle.italic,
+          //                   decoration: TextDecoration.underline,
+          //                   decorationColor: colors.primary,
+          //                 )),
+          //               ),
+          //               onTap: () {
+          //                 widget.idiNaIndeks(4);
+          //               },
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           // Dobra dela
           Padding(
@@ -585,101 +738,66 @@ class _PocetnaState extends State<Pocetna> {
               descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
                 fontStyle: FontStyle.italic,
               )),
-              title: 'Истакнуто добро дело',
-              description:
-                  'Учините да овај пали свет постане лепше место на неки од понуђених начина.',
+              title: _latinica
+                  ? cirilicaLatinica('Истакнуто добро дело')
+                  : 'Истакнуто добро дело',
+              description: _latinica
+                  ? cirilicaLatinica(
+                      'Дајте свој допринос, ваше мало је некоме пуно.')
+                  : 'Дајте свој допринос, ваше мало је некоме пуно.',
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.handHoldingHeart,
-                            size: textTheme.titleMedium?.fontSize,
-                            color: colors.primary,
+                          Row(
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.handHoldingHeart,
+                                size: textTheme.titleMedium?.fontSize,
+                                color: colors.primary,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text(
+                                _latinica
+                                    ? cirilicaLatinica('Истакнуто добро дело:')
+                                    : 'Истакнуто добро дело:',
+                                style: textTheme.bodyMedium?.merge(TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                )),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            'Учините добро дело:',
+                          SizedBox(height: 8),
+                          _istaknuto_delo,
+                        ],
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: GestureDetector(
+                          child: Text(
+                            _latinica
+                                ? cirilicaLatinica(
+                                    'види још...',
+                                  )
+                                : 'види још...',
                             style: textTheme.bodyMedium?.merge(TextStyle(
+                              color: colors.primary,
                               fontStyle: FontStyle.italic,
+                              decoration: TextDecoration.underline,
+                              decorationColor: colors.primary,
                             )),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "Издвојите минут да помогнете да други сазнају за апликацију",
-                        style: textTheme.titleMedium?.merge(TextStyle(
-                          color: praznik.crnoSlovo
-                              ? null
-                              : praznik.crvenoSlovo
-                                  ? HSLColor.fromColor(colors.primary)
-                                      .withHue(0)
-                                      .toColor()
-                                  : colors.primary,
-                          fontWeight: FontWeight.bold,
-                        )),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () async {},
-                            child: Text(
-                              "Оцени",
-                              style: textTheme.bodyMedium?.merge(TextStyle(
-                                color: colors.primary,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          OutlinedButton(
-                            onPressed: () async {
-                              ShareResult rezultat =
-                                  await Share.shareWithResult("");
-                              if (rezultat.status ==
-                                  ShareResultStatus.success) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(
-                                      "Хвала на дељењу! Учинили сте добро дело."),
-                                ));
-                              }
-                            },
-                            child: Text(
-                              "Подели",
-                              style: textTheme.bodyMedium?.merge(TextStyle(
-                                color: colors.primary,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      GestureDetector(
-                        child: Text(
-                          'види још...',
-                          style: textTheme.bodyMedium?.merge(TextStyle(
-                            color: colors.primary,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                            decorationColor: colors.primary,
-                          )),
+                          onTap: () {
+                            widget.idiNaIndeks(4);
+                          },
                         ),
-                        onTap: () {
-                          widget.idiNaIndeks(4);
-                        },
                       ),
                     ],
                   ),
