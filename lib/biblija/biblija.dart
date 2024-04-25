@@ -29,6 +29,7 @@ class _BiblijaState extends State<Biblija> {
   List<Knjiga> _filtriraneKnjige = [];
   Map<dynamic, dynamic> _zakacenoPoglavlje = {};
   bool _latinica = false;
+  bool _prikazanOverlay = true;
 
   // List<Map<dynamic, dynamic>> _kategorije = [];
   // List<Map<dynamic, dynamic>> _potkategorije = [];
@@ -59,17 +60,6 @@ class _BiblijaState extends State<Biblija> {
       _filtriraneKnjige = _knjige;
       _latinica = widget.latinica;
     });
-
-    if (_prikaziUputstva["biblija_nov_korisnik_glavno"]) {
-      WidgetsBinding.instance.addPostFrameCallback(
-          (_) => ShowCaseWidget.of(context).startShowCase([_knjiga1]));
-
-      setState(() {
-        _prikaziUputstva["biblija_nov_korisnik_glavno"] = false;
-      });
-
-      _sacuvajStanjePrikazivanjaUputstva();
-    }
   }
 
   Future<void> _ucitajStanjePrikazivanjaUputstva() async {
@@ -242,261 +232,325 @@ class _BiblijaState extends State<Biblija> {
     }
 
     if (_knjige.isNotEmpty) {
-      return Column(
+      return Stack(
         children: [
-          // Lista knjiga
-          Expanded(
-            child: ListView.builder(
-                itemCount: _filtriraneKnjige.length,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                physics: AlwaysScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  Knjiga knjiga = _filtriraneKnjige[index];
+          Column(
+            children: [
+              // Lista knjiga
+              Expanded(
+                child: ListView.builder(
+                    itemCount: _filtriraneKnjige.length,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      Knjiga knjiga = _filtriraneKnjige[index];
 
-                  if (index == 0) {
-                    return Showcase(
-                      key: _knjiga1,
-                      targetBorderRadius: BorderRadius.circular(13),
-                      tooltipBorderRadius: BorderRadius.circular(10),
-                      tooltipPadding: EdgeInsets.all(15),
-                      // onTargetClick: () {
-                      //   _skrolujDo(_biblija3);
-                      // },
-                      titleTextStyle: textTheme.titleMedium?.merge(TextStyle(
-                        color: colors.primary,
-                        fontWeight: FontWeight.bold,
-                      )),
-                      descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                        fontStyle: FontStyle.italic,
-                      )),
-                      title: _latinica
-                          ? cirilicaLatinica('Књига Библије')
-                          : 'Књига Библије',
-                      description: _latinica
-                          ? cirilicaLatinica(
-                              'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.')
-                          : 'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.',
-                      child: KarticaKnjige(
-                        knjiga: knjiga,
-                        izabranaVerzija: _izabranaVerzija,
-                        zakacenoPoglavlje: _zakacenoPoglavlje,
-                        sacuvajStanjeZakacenogPoglavlja:
-                            _sacuvajStanjeZakacenogPoglavlja,
-                        sortirajKnjige: _sortirajKnjige,
-                        latinica: _latinica,
-                      ),
-                    );
-                  } else {
-                    return KarticaKnjige(
-                      knjiga: knjiga,
-                      izabranaVerzija: _izabranaVerzija,
-                      zakacenoPoglavlje: _zakacenoPoglavlje,
-                      sacuvajStanjeZakacenogPoglavlja:
-                          _sacuvajStanjeZakacenogPoglavlja,
-                      sortirajKnjige: _sortirajKnjige,
-                      latinica: _latinica,
-                    );
-                  }
-                }),
-          ),
-
-          // Pretraga knjiga
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
+                      if (index == 0) {
+                        return Showcase(
+                          key: _knjiga1,
+                          targetBorderRadius: BorderRadius.circular(13),
+                          tooltipBorderRadius: BorderRadius.circular(10),
+                          tooltipPadding: EdgeInsets.all(15),
+                          // onTargetClick: () {
+                          //   _skrolujDo(_biblija3);
+                          // },
+                          titleTextStyle:
+                              textTheme.titleMedium?.merge(TextStyle(
+                            color: colors.primary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                            fontStyle: FontStyle.italic,
+                          )),
+                          title: _latinica
+                              ? cirilicaLatinica('Књига Библије')
+                              : 'Књига Библије',
+                          description: _latinica
+                              ? cirilicaLatinica(
+                                  'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.')
+                              : 'Ово је једна од књига Библије коју можете прочитати кликом на њу. Оне се деле на Стари и Нови Завет и одређене поткатегорије.',
+                          child: KarticaKnjige(
+                            knjiga: knjiga,
+                            izabranaVerzija: _izabranaVerzija,
+                            zakacenoPoglavlje: _zakacenoPoglavlje,
+                            sacuvajStanjeZakacenogPoglavlja:
+                                _sacuvajStanjeZakacenogPoglavlja,
+                            sortirajKnjige: _sortirajKnjige,
+                            latinica: _latinica,
+                          ),
+                        );
+                      } else {
+                        return KarticaKnjige(
+                          knjiga: knjiga,
+                          izabranaVerzija: _izabranaVerzija,
+                          zakacenoPoglavlje: _zakacenoPoglavlje,
+                          sacuvajStanjeZakacenogPoglavlja:
+                              _sacuvajStanjeZakacenogPoglavlja,
+                          sortirajKnjige: _sortirajKnjige,
+                          latinica: _latinica,
+                        );
+                      }
+                    }),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.magnifyingGlass,
-                        color: colors.primary,
-                        size: textTheme.titleLarge?.fontSize,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: Container(
-                          child: TextField(
-                            maxLines: 1,
-                            style: textTheme.titleMedium!.merge(TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: colors.primary,
-                            )),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 0),
-                              border: InputBorder.none,
-                              hintText: _latinica
-                                  ? cirilicaLatinica("Претражите књиге")
-                                  : "Претражите књиге",
+
+              // Pretraga knjiga
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.magnifyingGlass,
+                            color: colors.primary,
+                            size: textTheme.titleLarge?.fontSize,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: TextField(
+                                maxLines: 1,
+                                style: textTheme.titleMedium!.merge(TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colors.primary,
+                                )),
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 0),
+                                  border: InputBorder.none,
+                                  hintText: _latinica
+                                      ? cirilicaLatinica("Претражите књиге")
+                                      : "Претражите књиге",
+                                ),
+                                controller: _kontrolerPretrage,
+                                onChanged: (String unos) {
+                                  _filtrirajKnjige(unos);
+                                },
+                              ),
                             ),
-                            controller: _kontrolerPretrage,
-                            onChanged: (String unos) {
-                              _filtrirajKnjige(unos);
-                            },
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          // Showcase(
+                          //   key: _filteri3,
+                          //   targetBorderRadius: BorderRadius.circular(100),
+                          //   tooltipBorderRadius: BorderRadius.circular(10),
+                          //   tooltipPadding: EdgeInsets.all(15),
+                          //   // onTargetClick: () {
+                          //   //   _skrolujDo(_biblija3);
+                          //   // },
+                          //   titleTextStyle:
+                          //       textTheme.titleMedium?.merge(TextStyle(
+                          //     color: colors.primary,
+                          //     fontWeight: FontWeight.bold,
+                          //   )),
+                          //   descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
+                          //     fontStyle: FontStyle.italic,
+                          //   )),
+                          //   title: 'Филтрирање књига',
+                          //   description:
+                          //       'Можете да филтрирате и претражите књиге по категорији и поткатегорији.',
+                          //   child: IconButton(
+                          //     onPressed: () async {
+                          //       await showModalBottomSheet(
+                          //         context: context,
+                          //         builder: (context) => Padding(
+                          //           padding: EdgeInsets.symmetric(horizontal: 10),
+                          //           child: Column(
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment.start,
+                          //             children: [
+                          //               Text(
+                          //                 'Категорија',
+                          //                 style: textTheme.titleLarge?.merge(
+                          //                   TextStyle(
+                          //                     color: colors.primary,
+                          //                     fontWeight: FontWeight.bold,
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               SizedBox(
+                          //                 height: 10,
+                          //               ),
+                          //               Wrap(
+                          //                 children: [
+                          //                   for (int i = 0,
+                          //                           len = _kategorije.length;
+                          //                       i < len;
+                          //                       i++)
+                          //                     Row(
+                          //                       mainAxisSize: MainAxisSize.min,
+                          //                       children: [
+                          //                         FilterChip(
+                          //                           label: Text(_kategorije[i]
+                          //                               ['naslov']),
+                          //                           selected: _kategorije[i]
+                          //                               ['stanje'],
+                          //                           onSelected: (stanje) {
+                          //                             setState(() {
+                          //                               _kategorije[i]['stanje'] =
+                          //                                   stanje;
+                          //                             });
+                          //                           },
+                          //                         ),
+                          //                         if (i < len - 1)
+                          //                           SizedBox(
+                          //                             width: 10,
+                          //                           ),
+                          //                       ],
+                          //                     )
+                          //                 ],
+                          //               ),
+                          //               SizedBox(height: 10,),
+                          //               Text(
+                          //                 'Поткатегорија',
+                          //                 style: textTheme.titleLarge?.merge(
+                          //                   TextStyle(
+                          //                     color: colors.primary,
+                          //                     fontWeight: FontWeight.bold,
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               SizedBox(
+                          //                 height: 10,
+                          //               ),
+                          //               Wrap(
+                          //                 children: [
+                          //                   for (int i = 0,
+                          //                       len = _potkategorije.length;
+                          //                   i < len;
+                          //                   i++)
+                          //                     Row(
+                          //                       mainAxisSize: MainAxisSize.min,
+                          //                       children: [
+                          //                         FilterChip(
+                          //                           label: Text(_potkategorije[i]
+                          //                           ['naslov']),
+                          //                           selected: _potkategorije[i]
+                          //                           ['stanje'],
+                          //                           onSelected: (stanje) {
+                          //                             setState(() {
+                          //                               _kategorije[i]['stanje'] =
+                          //                                   stanje;
+                          //                             });
+                          //                           },
+                          //                         ),
+                          //                         if (i < len - 1)
+                          //                           SizedBox(
+                          //                             width: 10,
+                          //                           ),
+                          //                       ],
+                          //                     )
+                          //                 ],
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //         showDragHandle: true,
+                          //         isScrollControlled: true,
+                          //         useSafeArea: true,
+                          //       );
+                          //     },
+                          //     icon: FaIcon(
+                          //       FontAwesomeIcons.filter,
+                          //       size: textTheme.titleLarge?.fontSize,
+                          //       color: colors.primary,
+                          //     ),
+                          //     color: colors.surfaceVariant,
+                          //   ),
+                          // ),
+                        ]),
+                  ),
+                ),
+              ),
+
+              // // Odabir verzije
+              // DropdownButton(
+              //   value: _izabranaVerzija,
+              //   onChanged: (novaVerzija) {
+              //     setState(() {
+              //       if (novaVerzija != null) {
+              //         _izabranaVerzija = novaVerzija;
+              //         _promeniVerziju();
+              //       }
+              //     });
+              //   },
+              //   items: _verzije.map((verzija) {
+              //     return DropdownMenuItem(
+              //       value: verzija,
+              //       child: Text(verzija.naslov),
+              //     );
+              //   }).toList(),
+              // ),
+            ],
+          ),
+          if (_prikazanOverlay)
+            Container(
+              color: colors.background,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        title: Text(
+                          _latinica
+                              ? cirilicaLatinica(
+                                  "У име Оца и Сина и Светога Духа. Амин.")
+                              : "У име Оца и Сина и Светога Духа. Амин.",
+                          style: textTheme.titleMedium!.merge(
+                            TextStyle(
+                                color: colors.primary,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      // Showcase(
-                      //   key: _filteri3,
-                      //   targetBorderRadius: BorderRadius.circular(100),
-                      //   tooltipBorderRadius: BorderRadius.circular(10),
-                      //   tooltipPadding: EdgeInsets.all(15),
-                      //   // onTargetClick: () {
-                      //   //   _skrolujDo(_biblija3);
-                      //   // },
-                      //   titleTextStyle:
-                      //       textTheme.titleMedium?.merge(TextStyle(
-                      //     color: colors.primary,
-                      //     fontWeight: FontWeight.bold,
-                      //   )),
-                      //   descTextStyle: textTheme.bodyMedium?.merge(TextStyle(
-                      //     fontStyle: FontStyle.italic,
-                      //   )),
-                      //   title: 'Филтрирање књига',
-                      //   description:
-                      //       'Можете да филтрирате и претражите књиге по категорији и поткатегорији.',
-                      //   child: IconButton(
-                      //     onPressed: () async {
-                      //       await showModalBottomSheet(
-                      //         context: context,
-                      //         builder: (context) => Padding(
-                      //           padding: EdgeInsets.symmetric(horizontal: 10),
-                      //           child: Column(
-                      //             mainAxisSize: MainAxisSize.min,
-                      //             crossAxisAlignment:
-                      //                 CrossAxisAlignment.start,
-                      //             children: [
-                      //               Text(
-                      //                 'Категорија',
-                      //                 style: textTheme.titleLarge?.merge(
-                      //                   TextStyle(
-                      //                     color: colors.primary,
-                      //                     fontWeight: FontWeight.bold,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               SizedBox(
-                      //                 height: 10,
-                      //               ),
-                      //               Wrap(
-                      //                 children: [
-                      //                   for (int i = 0,
-                      //                           len = _kategorije.length;
-                      //                       i < len;
-                      //                       i++)
-                      //                     Row(
-                      //                       mainAxisSize: MainAxisSize.min,
-                      //                       children: [
-                      //                         FilterChip(
-                      //                           label: Text(_kategorije[i]
-                      //                               ['naslov']),
-                      //                           selected: _kategorije[i]
-                      //                               ['stanje'],
-                      //                           onSelected: (stanje) {
-                      //                             setState(() {
-                      //                               _kategorije[i]['stanje'] =
-                      //                                   stanje;
-                      //                             });
-                      //                           },
-                      //                         ),
-                      //                         if (i < len - 1)
-                      //                           SizedBox(
-                      //                             width: 10,
-                      //                           ),
-                      //                       ],
-                      //                     )
-                      //                 ],
-                      //               ),
-                      //               SizedBox(height: 10,),
-                      //               Text(
-                      //                 'Поткатегорија',
-                      //                 style: textTheme.titleLarge?.merge(
-                      //                   TextStyle(
-                      //                     color: colors.primary,
-                      //                     fontWeight: FontWeight.bold,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               SizedBox(
-                      //                 height: 10,
-                      //               ),
-                      //               Wrap(
-                      //                 children: [
-                      //                   for (int i = 0,
-                      //                       len = _potkategorije.length;
-                      //                   i < len;
-                      //                   i++)
-                      //                     Row(
-                      //                       mainAxisSize: MainAxisSize.min,
-                      //                       children: [
-                      //                         FilterChip(
-                      //                           label: Text(_potkategorije[i]
-                      //                           ['naslov']),
-                      //                           selected: _potkategorije[i]
-                      //                           ['stanje'],
-                      //                           onSelected: (stanje) {
-                      //                             setState(() {
-                      //                               _kategorije[i]['stanje'] =
-                      //                                   stanje;
-                      //                             });
-                      //                           },
-                      //                         ),
-                      //                         if (i < len - 1)
-                      //                           SizedBox(
-                      //                             width: 10,
-                      //                           ),
-                      //                       ],
-                      //                     )
-                      //                 ],
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         showDragHandle: true,
-                      //         isScrollControlled: true,
-                      //         useSafeArea: true,
-                      //       );
-                      //     },
-                      //     icon: FaIcon(
-                      //       FontAwesomeIcons.filter,
-                      //       size: textTheme.titleLarge?.fontSize,
-                      //       color: colors.primary,
-                      //     ),
-                      //     color: colors.surfaceVariant,
-                      //   ),
-                      // ),
-                    ]),
-              ),
-            ),
-          ),
+                        subtitle: Text(
+                          _latinica
+                              ? cirilicaLatinica(
+                                  "Библија је Реч Божија, стога и светиња и према њој се треба тако односити. Прекрстите се, па наставите.")
+                              : "Библија је Реч Божија, стога и светиња и према њој се треба тако односити. Прекрстите се, па наставите.",
+                        ),
+                        trailing: IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.arrowRight,
+                            color: colors.primary,
+                          ),
+                          iconSize: textTheme.titleLarge?.fontSize,
+                          onPressed: () {
+                            setState(() {
+                              _prikazanOverlay = false;
+                            });
+                            if (_prikaziUputstva["biblija_nov_korisnik_glavno"]) {
+                              WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => ShowCaseWidget.of(context).startShowCase([_knjiga1]));
 
-          // // Odabir verzije
-          // DropdownButton(
-          //   value: _izabranaVerzija,
-          //   onChanged: (novaVerzija) {
-          //     setState(() {
-          //       if (novaVerzija != null) {
-          //         _izabranaVerzija = novaVerzija;
-          //         _promeniVerziju();
-          //       }
-          //     });
-          //   },
-          //   items: _verzije.map((verzija) {
-          //     return DropdownMenuItem(
-          //       value: verzija,
-          //       child: Text(verzija.naslov),
-          //     );
-          //   }).toList(),
-          // ),
+                              setState(() {
+                                _prikaziUputstva["biblija_nov_korisnik_glavno"] = false;
+                              });
+
+                              _sacuvajStanjePrikazivanjaUputstva();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
         ],
       );
     } else {

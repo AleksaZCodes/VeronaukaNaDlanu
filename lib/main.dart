@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'dart:async';
-import 'package:timezone/timezone.dart';
+// import 'package:timezone/timezone.dart';
 
-import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:veronauka/color_schemes.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -15,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:veronauka/stranice.dart';
 import 'package:veronauka/informacije.dart';
@@ -23,8 +23,8 @@ import 'package:in_app_review/in_app_review.dart';
 
 final InAppReview inAppReview = InAppReview.instance;
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,11 +42,11 @@ void main() async {
   //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5eGpzemd4cnVlcHBhaHJscXpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNDMyOTMsImV4cCI6MjAyNDYxOTI5M30.NwRQ9rdqtttmxgEEuE9Als4BhH_guROGCaVROqq58ds',
   // );
 
-  var initializationSettingsAndroid =
-      AndroidInitializationSettings("launch_icon");
-  var initializationSettings =
-      InitializationSettings(android: initializationSettingsAndroid);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  // var initializationSettingsAndroid =
+  //     AndroidInitializationSettings("launch_icon");
+  // var initializationSettings =6
+  //     InitializationSettings(android: initializationSettingsAndroid);
+  // await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   Future<String> _ucitajVerzijuAplikacije() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -167,7 +167,7 @@ class _AppState extends State<App> {
     //   await _sacuvajStanjeZakazaneNotifikacije(true);
     // }
 
-    await _scheduleDailyNotifications();
+    // await _scheduleDailyNotifications();
 
     // String? _aktuelnaVerzijaAplikacije =
     //     await _ucitajAktuelnuVerzijuAplikacije();
@@ -183,63 +183,53 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-  TZDateTime _nextInstanceOfTime(Time time) {
-    final now = TZDateTime.now(getLocation("Serbia/Belgrade"));
-    var scheduledDate = TZDateTime(
-      now.location,
-      now.year,
-      now.month,
-      now.day,
-      time.hour,
-      time.minute,
-    );
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
-  }
+  // TZDateTime _nextInstanceOfTime(Time time) {
+  //   final now = TZDateTime.now(getLocation("Serbia/Belgrade"));
+  //   var scheduledDate = TZDateTime(
+  //     now.location,
+  //     now.year,
+  //     now.month,
+  //     now.day,
+  //     time.hour,
+  //     time.minute,
+  //   );
+  //   if (scheduledDate.isBefore(now)) {
+  //     scheduledDate = scheduledDate.add(const Duration(days: 1));
+  //   }
+  //   return scheduledDate;
+  // }
 
-  Future<void> _scheduleDailyNotifications() async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'VeronaukaNaDlanu',
-      'Veronauka',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: iOSPlatformChannelSpecifics,
-    );
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      0,
-      'Хеј, сврати на апликацију!',
-      'Помоли се, прочитај поглавље Библије и учини добро себи и другима.',
-      _nextInstanceOfTime(Time(9, 0, 0)),
-      platformChannelSpecifics,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
-  }
-
-  Future<bool> _ucitajStanjeZakazaneNotifikacije() async {
-    Box box = await Hive.box("parametri");
-    return box.get('zakazana_notifikacija', defaultValue: false);
-  }
-
-  Future<void> _sacuvajStanjeZakazaneNotifikacije(stanje) async {
-    Box box = await Hive.box("parametri");
-    box.put('zakazana_notifikacija', stanje);
-  }
+  // Future<void> _scheduleDailyNotifications() async {
+  //   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+  //     'VeronaukaNaDlanu',
+  //     'Veronauka',
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //   );
+  //   var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+  //   var platformChannelSpecifics = NotificationDetails(
+  //     android: androidPlatformChannelSpecifics,
+  //     iOS: iOSPlatformChannelSpecifics,
+  //   );
+  //
+  //   await flutterLocalNotificationsPlugin.zonedSchedule(
+  //     0,
+  //     'Хеј, сврати на апликацију!',
+  //     'Помоли се, прочитај поглавље Библије и учини добро себи и другима.',
+  //     _nextInstanceOfTime(Time(8, 0, 0)),
+  //     platformChannelSpecifics,
+  //     androidAllowWhileIdle: true,
+  //     uiLocalNotificationDateInterpretation:
+  //         UILocalNotificationDateInterpretation.absoluteTime,
+  //     matchDateTimeComponents: DateTimeComponents.time,
+  //   );
+  // }
 
   Future<void> _ucitajStanjeLatinice() async {
     Box box = await Hive.box("parametri");
 
     setState(() {
-      _latinica = box.get("latinica", defaultValue: true);
+      _latinica = box.get("latinica", defaultValue: false);
     });
   }
 
