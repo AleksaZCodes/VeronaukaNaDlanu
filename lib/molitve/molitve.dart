@@ -419,7 +419,7 @@ class _ModalZaMolitvuState extends State<ModalZaMolitvu> {
 
     if (_oglasiOmoguceni) {
       BannerAd(
-        adUnitId: Oglasi.bannerAdUnitId,
+        adUnitId: Oglasi.bannerMolitveAdUnitId,
         request: AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(

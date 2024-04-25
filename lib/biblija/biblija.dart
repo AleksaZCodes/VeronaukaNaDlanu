@@ -713,7 +713,7 @@ class _ModalZaCitanjeState extends State<ModalZaCitanje> {
 
     if (_oglasiOmoguceni) {
       BannerAd(
-        adUnitId: Oglasi.bannerAdUnitId,
+        adUnitId: Oglasi.bannerBiblijaAdUnitId,
         request: AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(
